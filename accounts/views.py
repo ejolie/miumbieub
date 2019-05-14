@@ -1,8 +1,12 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth import get_user_model
 from django.contrib.auth import login as auth_login, logout as auth_logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from .forms import UserCustomCreationForm
+from .serializers import UserSerializer
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
 
 def login(request):
@@ -37,3 +41,10 @@ def signup(request):
         user_form = UserCustomCreationForm()
     context = {'form': user_form}
     return render(request, 'accounts/forms.html', context)
+
+
+@api_view(["GET"])
+def profile(request, username):
+    user = get_object_or_404(get_user_model(), username=username)
+    serializer = UserSerializer(user)
+    return Response(serializer.data)
