@@ -4,8 +4,17 @@ from movies.serializers import RatingSerializer
 
 
 class UserSerializer(serializers.ModelSerializer):
-    ratings = RatingSerializer(Many=True, read_only=True)
-    
+    ratings = RatingSerializer(many=True, read_only=True)
+    from_user = serializers.StringRelatedField(many=True)
+
     class Meta:
         model = User
-        fields = "__all__"
+        fields = (
+            'id',
+            'username',
+            'email',
+            'first_name',
+            'last_name',
+            'ratings',
+            'from_user',
+        )
