@@ -14,7 +14,8 @@ SSAFY 마지막 프로젝트
 
 ### Backend
 - Django : 2.1
-- Pythoon : 3.6.7
+- Django REST framework : 3.9.4
+- Python : 3.6.7
 
 &nbsp;
 ## Deploy
