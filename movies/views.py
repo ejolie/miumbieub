@@ -47,7 +47,7 @@ def ratings_list(request, pk):
         return Response(serializer.data)
     else:
         if request.user.is_authenticated():
-            serializer = RatingSerializer(data=request.data, context={"movie": pk})
+            serializer = RatingSerializer(data=request.data)
             if serializer.is_valid(raise_exception=True):
                 serializer.save()
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -62,7 +62,7 @@ def ratings_detail(request, pk):
         serializer = RatingSerializer(rating)
         return Response(serializer.data)
     else:
-        if request.user.is_authenticated():
+        if request.user == rating.user:
             if request.method == 'PUT':
                 serializer = RatingSerializer(rating, data=request.data)
                 if serializer.is_valid(raise_exception=True):
