@@ -24,33 +24,18 @@ def genres_detail(request, pk):
     return Response(serializer.data)
 
 
-@api_view(["GET", "POST"])
+@api_view(["GET"])
 def movies_list(request):
-    if request.method == "GET":
-        movies = Movie.objects.all()
-        serializer = MovieSerializer(movies, many=True)
-        return Response(serializer.data)
-    else:
-        serializer = MovieSerializer(data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+    movies = Movie.objects.all()
+    serializer = MovieSerializer(movies, many=True)
+    return Response(serializer.data)
 
 
-@api_view(["GET", "DELETE", "PUT"])
+@api_view(["GET"])
 def movies_detail(request, pk):
     movie = get_object_or_404(Movie, pk=pk)
-    if request.method == 'GET':
-        serializer = MovieSerializer(movie)
-        return Response(serializer.data)
-    elif request.method == 'PUT':
-        serializer = MovieSerializer(movie, data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
-    elif request.method == 'DELETE':
-        movie.delete()
-        return Response({"message": "삭제되었습니다."}, status=status.HTTP_204_NO_CONTENT)
+    serializer = MovieSerializer(movie)
+    return Response(serializer.data)
 
 
 @api_view(["GET", "POST"])
@@ -61,10 +46,13 @@ def ratings_list(request, pk):
         serializer = RatingSerializer(ratings, Many=True)
         return Response(serializer.data)
     else:
-        serializer = RatingSerializer(data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        if request.user.is_authenticated():
+            serializer = RatingSerializer(data=request.data, context={"movie": pk})
+            if serializer.is_valid(raise_exception=True):
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
 
 
 @api_view(["GET", "DELETE", "PUT"])
@@ -73,11 +61,15 @@ def ratings_detail(request, pk):
     if request.method == 'GET':
         serializer = RatingSerializer(rating)
         return Response(serializer.data)
-    elif request.method == 'PUT':
-        serializer = RatingSerializer(rating, data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
-    elif request.method == 'DELETE':
-        rating.delete()
-        return Response({"message": "삭제되었습니다."}, status=status.HTTP_204_NO_CONTENT)
+    else:
+        if request.user.is_authenticated():
+            if request.method == 'PUT':
+                serializer = RatingSerializer(rating, data=request.data)
+                if serializer.is_valid(raise_exception=True):
+                    serializer.save()
+                    return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+            elif request.method == 'DELETE':
+                rating.delete()
+                return Response({"message": "삭제되었습니다."}, status=status.HTTP_204_NO_CONTENT)
+        else:
+            return Response(status=status.HTTP_401_UNAUTHORIZED)

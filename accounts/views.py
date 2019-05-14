@@ -3,6 +3,7 @@ from django.contrib.auth import login as auth_login, logout as auth_logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from .forms import UserCustomCreationForm
+from rest_framework.decorators import api_view
 
 
 def login(request):
@@ -37,3 +38,8 @@ def signup(request):
         user_form = UserCustomCreationForm()
     context = {'form': user_form}
     return render(request, 'accounts/forms.html', context)
+
+
+@api_view(["POST"])
+def ratings(request):
+    pass
