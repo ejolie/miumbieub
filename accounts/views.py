@@ -14,12 +14,14 @@ def login(request):
         return redirect('movies:index')
     if request.method == 'POST':
         form = AuthenticationForm(request, request.POST)
+        print(form)
+        print(form.get_user())
         if form.is_valid():
             auth_login(request, form.get_user())
-            return redirect(request.GET.get('next') or 'movies:list')
+            return redirect(request.GET.get('next') or 'movies:index')
     else:
         form = AuthenticationForm()
-    return render(request, 'accounts/forms.html', {'form': form})
+    return render(request, 'accounts/login.html', {'form': form})
 
 
 @login_required
@@ -39,8 +41,7 @@ def signup(request):
             return redirect('movies:index')
     else:
         user_form = UserCustomCreationForm()
-    context = {'form': user_form}
-    return render(request, 'accounts/forms.html', context)
+    return render(request, 'accounts/signup.html', {'form': user_form })
 
 
 @api_view(["GET"])
