@@ -14,29 +14,28 @@
   <section class="section">
     <div class="columns is-centered">
       <div class="column is-half">
-        <a href="{% url 'movies:detail' 1 %}">
+        <a href="{% url 'movies:movies_detail' movie.pk %}">
           <div class="card movie-card">
             <div class="card-image">
               <figure class="image">
-                <img width="600" src="https://movie-phinf.pstatic.net/20190417_250/1555465284425i6WQE_JPEG/movie_image.jpg" alt="Placeholder image">
+                <img width="600" src="{{ movie.poster_url }}" alt="{{ movie.title }}">
               </figure>
             </div>
             <div class="card-content">
               <div class="media">
                 <div class="media-content">
-                  <div class="tags" style="margin-bottom: 0.5rem;">
-                    <span class="tag">액션</span>
-                    <span class="tag">SF</span>
+                  <div class="tags" style="margin-bottom: 0.2rem;">
+                    {% for genre in movie.genres.all %}
+                    <span class="tag">{{ genre.type }}</span>
+                    {% endfor %}
                   </div>
-                  <p class="title is-4 movie-title">어벤져스 : 엔드게임</p>
+                  <p class="title is-4 movie-title" style="margin-bottom: 0.2rem">{{ movie.title }}</p>
+                  <small>{{ movie.release }} 개봉 &bull; {{ movie.film_rating }}</small>
                 </div>
               </div>
               <div class="content">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Phasellus nec iaculis mauris. <a>@bulmaio</a>.
-              <a href="#">#css</a> <a href="#">#responsive</a>
-              <br>
-              <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+                <p style="margin-bottom: 0">감독 : {{ movie.director }}</p>
+                <p style="margin-bottom: 0">배우 : {{ movie.actor1 }}, {{ movie.actor2 }}, {{ movie.actor3 }}</p>
               </div>
             </div>
           </div>

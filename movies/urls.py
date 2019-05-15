@@ -4,7 +4,6 @@ from django.urls import path
 app_name = "movies"
 urlpatterns = [
     path('', views.index, name="index"),
-    path('<int:pk>/', views.detail, name="detail"),
     path('genres/', views.genres_list, name="genres_list"),
     path('genres/<int:pk>/', views.genres_detail, name="genres_detail"),
     path('movies/', views.movies_list, name="movies_list"),
