@@ -2,21 +2,23 @@
   <div class="container">
     <div class="columns is-multiline">
       <div class="column is-one-third">
-        <article 
-          class="media notification"
-          style="background: url('https://static.standard.co.uk/s3fs-public/thumbnails/image/2013/09/06/08/About-Time.jpg?w968'); 
-                background-size: cover;">
-          <div class="media-content">
-            <div class="content">
-              <h1 class="title genre-title is-size-4">
-                <span class="highlight">로맨스</span>
-              </h1>
-              <p class="subtitle">
-                <br/><br/><br/>
-              </p>
+        <a href="{% url 'movies:genres_detail' 1 %}">
+          <article 
+            class="media notification"
+            style="background: url('https://static.standard.co.uk/s3fs-public/thumbnails/image/2013/09/06/08/About-Time.jpg?w968'); 
+                  background-size: cover;">
+            <div class="media-content">
+              <div class="content">
+                <h1 class="title genre-title is-size-4">
+                  <span class="highlight">로맨스</span>
+                </h1>
+                <p class="subtitle">
+                  <br/><br/><br/>
+                </p>
+              </div>
             </div>
-          </div>
-        </article>
+          </article>
+        </a>
       </div>
       <div class="column is-one-third">
         <article 
