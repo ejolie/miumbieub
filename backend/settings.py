@@ -31,6 +31,10 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'rest_framework',
+    'bulma',
+    'django_extensions',
+    'django.contrib.humanize',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,8 +43,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'movies',
     'accounts',
-    'rest_framework',
-    'bulma'
 ]
 
 MIDDLEWARE = [
