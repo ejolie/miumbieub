@@ -48,6 +48,10 @@
   text-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
 
+.image img {
+  border-radius: 10px 10px 0 0;
+}
+
 .genres img {
   border-radius: 10px;
 }
@@ -66,6 +70,12 @@
   color: #fff;
 }
 
+/* Comments */
+.comments .content {
+  font-family: "Noto Sans KR", sans-serif;
+  font-weight: 300;
+  color: #fff;
+}
 
 /* Signup */
 .signup * {

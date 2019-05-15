@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load humanize %}
 {% block app %}
 <!-- Hero content -->
 <div class="hero-body" style="padding-top: 5rem; padding-bottom: 5rem;">
@@ -30,7 +31,7 @@
                     {% endfor %}
                   </div>
                   <p class="title is-4 movie-title" style="margin-bottom: 0.2rem">{{ movie.title }}</p>
-                  <small>{{ movie.release }} 개봉 &bull; {{ movie.film_rating }}</small>
+                  <small>{{ movie.release }} 개봉 &bull; {{ movie.audience | intcomma }}명 &bull; {{ movie.film_rating }}</small>
                 </div>
               </div>
               <div class="content">

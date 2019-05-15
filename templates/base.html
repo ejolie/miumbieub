@@ -33,17 +33,9 @@
     </div>
 
   <!--<script src="/static/js/app.js"></script>-->
+  <!-- Axios -->
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script>
-    const nav = new Vue({
-      el: '#nav',
-      
-      data: {
-        hover: 'ㅁㅂ',
-        showNav: false,
-        query: '',
-      }
-    });
-    
     const app = new Vue({
       el: '#app',
       
@@ -81,18 +73,21 @@
       },
   
     
-      // mounted: {
-      //   async getRatingList() {
-      //     try {
-      //       const pk = {{ movie.pk }}
-      //       const res = axios.get(`movies/${pk}/ratings/`);
-      //       this.ratingList = res.data;
-      //     }
-      //     catch (err) {
-      //       console.log(err);
-      //     }
-      //   }
-      // }
+      created() {
+        // async getRatingList() {
+        //   try {
+        //     const pk = {{ movie.pk }}
+        //     const res = axios.get(`movies/${pk}/ratings/`);
+        //     this.ratingList = res.data;
+        //   }
+        //   catch (err) {
+        //     console.log(err);
+        //   }
+        // }
+        // axios.get(`movies/`)
+        //   .then(res => console.log(res.data))
+        //   .catch(err => console.log(err))
+      }
     })
   </script>
   </body>

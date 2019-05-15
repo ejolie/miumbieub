@@ -1,13 +1,15 @@
 <!-- Comments List -->
 <article class="media">
   <div class="media-content">
-    <div class="content" v-if="ratingList !== []">
+    {% for rating in movie.ratings.all %}
+    <div class="content">
       <p>
-        <strong>John Smith</strong> <small>@johnsmith</small>
+        <span style="font-weight: 700;">{{ rating.user.username }}</span>
         <br>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.
+        {{ rating.comment }}
       </p>
     </div>
+    {% endfor %}
   </div>
 </article>
 <!-- Create Comment -->
