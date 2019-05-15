@@ -1,6 +1,7 @@
 from datetime import datetime
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 
 class Genre(models.Model):
@@ -28,10 +29,6 @@ class Movie(models.Model):
 
     def __str__(self):
         return self.title
-        
-    @classmethod
-    def max_audience(cls):
-        return cls.objects.order_by('-audience')[0]
 
     @classmethod
     def max_audience(cls):
@@ -42,7 +39,7 @@ class Rating(models.Model):
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='ratings')
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='ratings')
     comment = models.TextField()
-    score = models.IntegerField()
+    score = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)])
 
     def __str__(self):
         return f'{self.movie} | {self.score} | {self.comment}'
