@@ -76,9 +76,6 @@ def ratings_detail(request, pk):
                 rating.delete()
                 return Response({"message": "삭제되었습니다."}, status=status.HTTP_204_NO_CONTENT)
         else:
-<<<<<<< HEAD
-            return Response(status=status.HTTP_401_UNAUTHORIZED)
-=======
             return Response(status=status.HTTP_401_UNAUTHORIZED)
 
 
