@@ -5,7 +5,7 @@ from django.contrib.auth import get_user_model
 
 class Genre(models.Model):
     type = models.CharField(max_length=150)
-    
+
     def __str__(self):
         return self.type
 
@@ -32,6 +32,11 @@ class Movie(models.Model):
     @classmethod
     def max_audience(cls):
         return cls.objects.order_by('-audience')[0]
+
+    @classmethod
+    def max_audience(cls):
+        return cls.objects.order_by('-audience')[0]
+
 
 class Rating(models.Model):
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='ratings')
