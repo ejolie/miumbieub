@@ -14,6 +14,11 @@ def index(request):
 def movies_detail(request, pk):
     movie = get_object_or_404(Movie, pk=pk)
     return render(request, 'movies/detail.html', { 'movie': movie })
+    
+def genres_detail(request, pk):
+    genre = get_object_or_404(Genre, pk=pk)
+    movies = genre.movies.all()
+    return render(request, 'movies/genre.html', { 'movies': movies })
 
 @api_view(["GET"])
 def genres_list(request):
@@ -22,11 +27,11 @@ def genres_list(request):
     return Response(serializer.data)
 
 
-@api_view(["GET"])
-def genres_detail(request, pk):
-    genre = get_object_or_404(Genre, pk=pk)
-    serializer = GenreSerializer(genre)
-    return Response(serializer.data)
+# @api_view(["GET"])
+# def genres_detail(request, pk):
+#     genre = get_object_or_404(Genre, pk=pk)
+#     serializer = GenreSerializer(genre)
+#     return Response(serializer.data)
 
 
 @api_view(["GET"])
@@ -48,7 +53,7 @@ def ratings_list(request, pk):
     movie = get_object_or_404(Movie, pk=pk)
     if request.method == "GET":
         ratings = movie.ratings.all()
-        serializer = RatingSerializer(ratings, Many=True)
+        serializer = RatingSerializer(ratings, many=True)
         return Response(serializer.data)
     else:
         if request.user.is_authenticated():

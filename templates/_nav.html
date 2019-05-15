@@ -1,8 +1,9 @@
 <!-- .Nav -->
-<nav class="navbar is-black" id="nav" style="padding-top: 0.5rem;">
+<nav class="navbar is-black" id="nav" style="padding-top: 0.6rem;">
 <div class="container">
   <div class="navbar-brand">
     <a class="navbar-item" href="{% url 'movies:index' %}">
+      <i class="fas fa-video" style="margin-right: 0.3rem;"></i> 
       <span @mouseover="hover.nav='미음비읍'" @mouseleave="hover.nav='ㅁㅂ'" v-text="hover.nav">ㅁㅂ</span>
     </a>
     <span class="navbar-burger burger"
