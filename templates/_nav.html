@@ -29,6 +29,11 @@
       <span class="navbar-item">
         <a>{{ user.username }}</a>
       </span>
+      <span class="navbar-item">
+        <a class="button is-light is-outlined" href="{% url 'accounts:logout' %}">
+          <span>로그아웃</span>
+        </a>
+      </span>
       {% else %}
       <span class="navbar-item">
         <a class="button is-primary is-outlined" href="{% url 'accounts:signup' %}">
