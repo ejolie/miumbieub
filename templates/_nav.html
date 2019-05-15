@@ -3,7 +3,7 @@
 <div class="container">
   <div class="navbar-brand">
     <a class="navbar-item" href="{% url 'movies:index' %}">
-      <span @mouseover="hover='미음비읍'" @mouseleave="hover='ㅁㅂ'" v-text="hover">ㅁㅂ</span>
+      <span @mouseover="hover.nav='미음비읍'" @mouseleave="hover.nav='ㅁㅂ'" v-text="hover.nav">ㅁㅂ</span>
     </a>
     <span class="navbar-burger burger"
       @click="showNav = !showNav"
@@ -51,14 +51,3 @@
 </div>
 </nav>
 <!-- /.Nav -->
-<script>
-  const nav = new Vue({
-    el: '#nav',
-    
-    data: {
-      hover: 'ㅁㅂ',
-      showNav: false,
-      query: '',
-    }
-  });
-</script>

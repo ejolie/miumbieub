@@ -15,13 +15,17 @@
     <link rel="stylesheet" href="/static/css/app.css">
     <!-- Vue -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- Axios -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <title>ㅁㅂ</title>
   </head>
   <body>
-    {% include '_nav.html' %}
     <div id="app">
+      {% include '_nav.html' %}
+      
       {% block app %}
       {% endblock %}
+      
       <footer class="footer has-background-black">
         <div class="content has-text-centered has-text-white">
           <p>
@@ -33,62 +37,5 @@
     </div>
 
   <!--<script src="/static/js/app.js"></script>-->
-  <!-- Axios -->
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  <script>
-    const app = new Vue({
-      el: '#app',
-      
-      data: {
-        hover: {
-          hero: 'ㅇㅈㅇ ㅇㅎ',
-          genre: 'ㅈㄹㅂ ㅇㅎ',
-        },
-        ratingList: [],
-        rating: {
-          score: 0,
-          comment: '',
-        },
-      },
-      
-      computed: {
-      },
-      
-      methods: {
-        // Axios
-        async searchMovie() {
-          
-        },
-        
-        async createRating(movie_pk) {
-          try {
-            const res = axios.post(`movies/${movie_pk}/ratings/`, this.rating);
-            this.content = '';
-            this.rating = 0;
-          } 
-          catch (err) {
-            console.log(err);
-          }
-        },
-      },
-  
-    
-      created() {
-        // async getRatingList() {
-        //   try {
-        //     const pk = {{ movie.pk }}
-        //     const res = axios.get(`movies/${pk}/ratings/`);
-        //     this.ratingList = res.data;
-        //   }
-        //   catch (err) {
-        //     console.log(err);
-        //   }
-        // }
-        // axios.get(`movies/`)
-        //   .then(res => console.log(res.data))
-        //   .catch(err => console.log(err))
-      }
-    })
-  </script>
   </body>
 </html>

@@ -33,4 +33,83 @@
     </div>
   </div>
 </section>
+
+<script>
+  Vue.component('star-rating', {
+    props: {
+      'name': String,
+      'value': null,
+      'id': String,
+      'disabled': Boolean,
+      'required': Boolean
+    },
+  
+    template: '<div class="star-rating">\
+          <label class="star-rating__star" v-for="rating in ratings" \
+          :class="{\'is-selected\': ((value >= rating) && value != null), \'is-disabled\': disabled}" \
+          v-on:click="set(rating)" v-on:mouseover="star_over(rating)" v-on:mouseout="star_out">\
+          <input class="star-rating star-rating__checkbox" type="radio" :value="rating" :name="name" \
+          v-model="value" :disabled="disabled">★</label></div>',
+  
+    data: function() {
+      return {
+        temp_value: null,
+        ratings: [1, 2, 3, 4, 5]
+      };
+    },
+  
+    methods: {
+      star_over: function(index) {
+        const self = this;
+  
+        if (!this.disabled) {
+          this.temp_value = this.value;
+          return this.value = index;
+        }
+      },
+  
+      star_out: function() {
+        const self = this;
+  
+        if (!this.disabled) {
+          return this.value = this.temp_value;
+        }
+      },
+  
+      set: function(value) {
+        const self = this;
+  
+        if (!this.disabled) {
+          this.temp_value = value;
+          return this.value = value;
+        }
+      }
+    }
+  });
+  
+  const detail = new Vue({
+    el: '#comments',
+    components: ['star-rating'],
+    data: {
+      ratingList: [],
+      rating: {
+        score: 0,
+        comment: '',
+      },
+    },
+    method: {
+      async createRating(movie_pk) {
+        try {
+          const res = axios.post(`movies/${movie_pk}/ratings/`, this.rating);
+          this.rating.comment = '';
+          this.rating.score = 0;
+        } 
+        catch (err) {
+          console.log(err);
+        }
+      },
+    }
+  })
+
+</script>
 {% endblock %}

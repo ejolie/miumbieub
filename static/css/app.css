@@ -77,6 +77,42 @@
   color: #fff;
 }
 
+.star-rating {
+  margin: 0;
+}
+
+/* Star rating */
+.star-rating__star {
+  display: inline-block;
+  padding: 1px;
+  vertical-align: middle;
+  line-height: 1;
+  font-size: 1.3em;
+  color: #ABABAB;
+  transition: color .2s ease-out;
+}
+
+.star-rating__checkbox {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  height: 1px; width: 1px;
+  margin: -1px; padding: 0; border: 0;
+}
+
+.star-rating: hover {
+  cursor: pointer;
+}
+    
+.star-rating .is-selected {
+  color: #FFD700;
+}
+    
+.star-rating .is-disabled:hover {
+  cursor: default;
+}
+
+
 /* Signup */
 .signup * {
   font-family: "Noto Sans KR", sans-serif;
