@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!-- Bulma -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Gugi|Noto+Sans+KR:300,400,700" rel="stylesheet">
+    <!-- Font Awesome -->
+    <script defer src="https://use.fontawesome.com/releases/v5.8.2/js/all.js"></script>
+    <!-- My CSS files -->
+    <link rel="stylesheet" href="/static/css/app.css">
+    <!-- Vue -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>ㅁㅂ</title>
+  </head>
+  <body>
+    {% include '_nav.html' %}
+    <div id="app">
+      {% block app %}
+      {% endblock %}
+      <footer class="footer has-background-black">
+        <div class="content has-text-centered has-text-white">
+          <p>
+            미음비읍 by 박은정 & 서지욱. <br/> The source code is licensed
+            <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. The website was made at SSAFY.
+          </p>
+        </div>
+      </footer>
+    </div>
+
+  <!--<script src="/static/js/app.js"></script>-->
+  <script>
+    const nav = new Vue({
+      el: '#nav',
+      
+      data: {
+        hover: 'ㅁㅂ',
+        showNav: false,
+        query: '',
+      }
+    });
+    
+    const app = new Vue({
+      el: '#app',
+      
+      data: {
+        hover: {
+          hero: 'ㅇㅈㅇ ㅇㅎ',
+          genre: 'ㅈㄹㅂ ㅇㅎ',
+        },
+        ratingList: [],
+        rating: {
+          score: 0,
+          comment: '',
+        },
+      },
+      
+      computed: {
+      },
+      
+      methods: {
+        // Axios
+        async searchMovie() {
+          
+        },
+        
+        async createRating(movie_pk) {
+          try {
+            const res = axios.post(`movies/${movie_pk}/ratings/`, this.rating);
+            this.content = '';
+            this.rating = 0;
+          } 
+          catch (err) {
+            console.log(err);
+          }
+        },
+      },
+  
+    
+      // mounted: {
+      //   async getRatingList() {
+      //     try {
+      //       const pk = {{ movie.pk }}
+      //       const res = axios.get(`movies/${pk}/ratings/`);
+      //       this.ratingList = res.data;
+      //     }
+      //     catch (err) {
+      //       console.log(err);
+      //     }
+      //   }
+      // }
+    })
+  </script>
+  </body>
+</html>
