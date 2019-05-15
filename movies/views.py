@@ -52,7 +52,7 @@ def ratings_list(request, pk):
     movie = get_object_or_404(Movie, pk=pk)
     if request.method == "GET":
         ratings = movie.ratings.all()
-        serializer = RatingSerializer(ratings, Many=True)
+        serializer = RatingSerializer(ratings, many=True)
         return Response(serializer.data)
     else:
         if request.user.is_authenticated():
