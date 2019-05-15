@@ -25,13 +25,15 @@
             <div class="card-content">
               <div class="media">
                 <div class="media-content">
-                  <div class="tags" style="margin-bottom: 0.2rem;">
+                  <div class="tags" style="margin-bottom: 0.4rem;">
                     {% for genre in movie.genres.all %}
-                    <span class="tag">{{ genre.type }}</span>
+                      <span class="tag is-primary">{{ genre.type }}</span>
                     {% endfor %}
                   </div>
-                  <p class="title is-4 movie-title" style="margin-bottom: 0.2rem">{{ movie.title }}</p>
-                  <small>{{ movie.release }} 개봉 &bull; {{ movie.audience | intcomma }}명 &bull; {{ movie.film_rating }}</small>
+                  <p class="title is-3 movie-title" style="margin-bottom: 1rem">{{ movie.title }}</p>
+                  <small>{{ movie.release }} 개봉</small>
+                  &bull; <small>{{ movie.film_rating }}</small>
+                  &bull; <small><i class="fas fa-users"></i> {{ movie.audience | intcomma }}명</small>
                 </div>
               </div>
               <div class="content">
@@ -45,7 +47,7 @@
     </div>
   </section>
 </div>
-<section class="section" style="margin-bottom: 10rem;">
+<section class="section" style="padding-bottom: 10rem;">
   <div class="container has-text-centered">
     <h1 
       class="title hero-title"
@@ -55,61 +57,20 @@
       v-text="hover.genre">
     </h1>
   </div>
-  <section class="section genres" style="padding-right: 3rem; padding-left: 3rem;">
-  
-  <!-- <div class="columns is-multiline">-->
-  <!--  <div class="column is-3">-->
-  <!--    <a>-->
-  <!--      <img src="https://static.standard.co.uk/s3fs-public/thumbnails/image/2013/09/06/08/About-Time.jpg?w968" -->
-  <!--        alt="로맨스"-->
-  <!--        width="300"-->
-  <!--      />-->
-  <!--    </a>-->
-  <!--  </div>-->
-  <!--  <div class="column is-3">-->
-  <!--    <img src="https://mondrian.mashable.com/uploads%252Fcard%252Fimage%252F760683%252F2117d274-d2cf-46b9-b60c-698d65361438.jpg%252F950x534__filters%253Aquality%252890%2529.jpg?signature=-7R3bLC1xTVhrjc86pBeYAogXFY=&source=https%3A%2F%2Fblueprint-api-production.s3.amazonaws.com" -->
-  <!--      alt="판타지"-->
-  <!--      width="300"-->
-  <!--    />-->
-  <!--  </div>-->
-  <!--  <div class="column is-3">-->
-  <!--    <img src="http://www.hanhodaily.com/news/photo/201603/46951_6136_5257.jpg" -->
-  <!--      alt="액션"-->
-  <!--      width="300"-->
-  <!--    />-->
-  <!--  </div>-->
-  <!--  <div class="column is-3">-->
-  <!--    <div class="notification">-->
-  <!--    SF-->
-  <!--    </div>-->
-  <!--  </div>-->
-  <!--  <div class="column is-3">-->
-  <!--    <div class="notification">-->
-  <!--    로맨스-->
-  <!--    </div>-->
-  <!--  </div>-->
-  <!--  <div class="column is-3">-->
-  <!--    <div class="notification">-->
-  <!--    판타지-->
-  <!--    </div>-->
-  <!--  </div>-->
-  <!--  <div class="column is-3">-->
-  <!--    <div class="notification">-->
-  <!--    액션-->
-  <!--    </div>-->
-  <!--  </div>-->
-  <!--</section>-->
+  {% include 'movies/_genre-cards.html' %}
 </section>
 
 <script>
   const home = new Vue({
     el: '#app',
+    delimiters: ['[[', ']]'],
     data: {
       hover: {
         hero: 'ㅇㅈㅇ ㅇㅎ',
         genre: 'ㅈㄹㅂ ㅇㅎ',
         nav: 'ㅁㅂ',
       },
+      showNav: false,
     },
 
     methods: {

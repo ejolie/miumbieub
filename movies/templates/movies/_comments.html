@@ -1,24 +1,39 @@
 <!-- Comments List -->
 <article class="media">
   <div class="media-content">
-    {% for rating in movie.ratings.all %}
-    <div class="content">
+    <div class="content" v-for="rating in ratingList">
       <p>
-        <span style="font-weight: 700;">{{ rating.user.username }}</span>
+        <span style="font-weight: 700;">[[ rating.user ]]</span>
         <br>
-        {{ rating.comment }}
+        [[ rating.comment ]]
       </p>
     </div>
-    {% endfor %}
   </div>
 </article>
 <!-- Create Comment -->
-<article class="media" id="comments">
+<article class="media">
   <div class="media-content">
     <div class="field">
       <p class="control">
-        <star-rating></star-rating>
-        <!--<input v-model="rating.score" type="number" name="score">-->
+        <!-- Star Rating -->
+        <div class="star-rating">
+          <label 
+            class="star-rating__star" 
+            v-for="num in ratings"
+            :class="{'is-selected': ((rating.score >= num) && rating.score != null)}"
+            @click="set(num)" 
+            @mouseover="star_over(num)"
+            @mouseout="star_out"
+          >
+            <input 
+              class="star-rating star-rating__checkbox" 
+              type="radio"
+              :value="num" 
+              name="score"
+              v-model="rating.score" 
+            />★
+          </label>
+        </div>
       </p>
     </div>
     <div class="field">

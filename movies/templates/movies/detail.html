@@ -9,24 +9,28 @@
       <div class="column" style="display:flex; justify-content: center; align-items: center;">
         <div class="content" style="max-width: 650px">
           <!-- Movie Poster -->
-          <img src="{{ movie.poster_url }}" width="650">
+          <div class="gradient-box"><img src="{{ movie.poster_url }}" width="650"></div>
           <!-- Genres -->
-          <div class="tags" style="margin-top: 1rem; margin-bottom: 0.2rem;">
+          <div class="tags" style="margin-top: 1.8rem; margin-bottom: 0.2rem;">
             {% for genre in movie.genres.all %}
-            <span class="tag">{{ genre.type }}</span>
+            <span class="tag is-primary">{{ genre.type }}</span>
             {% endfor %}
           </div>
-          <h1 class="title" style="margin-top: 0; margin-bottom: 0.4rem;">{{ movie.title }}</h1>
+          <h1 class="title" style="margin-top: 0.8rem; margin-bottom: 1rem;">{{ movie.title }}</h1>
           <div class="movie-description" style="line-height: 1.6">
-            <small>{{ movie.release }} 개봉 &bull; {{ movie.audience | intcomma }}명 &bull; {{ movie.film_rating }}</small>
-            <p style="margin-bottom: 0">감독 : {{ movie.director }}</p>
-            <p style="margin-bottom: 0">배우 : {{ movie.actor1 }}, {{ movie.actor2 }}, {{ movie.actor3 }}</p>
+            <small>{{ movie.release }} 개봉</small>
+            &bull; <small>{{ movie.film_rating }}</small>
+            &bull; <small><i class="fas fa-users"></i> {{ movie.audience | intcomma }}명</small>
+            <div class="content" style="margin-top: 1rem;">
+              <p style="margin-bottom: 0">감독 : {{ movie.director }}</p>
+              <p style="margin-bottom: 0">배우 : {{ movie.actor1 }}, {{ movie.actor2 }}, {{ movie.actor3 }}</p>
+            </div>
           </div>
         </div>
       </div>
     </div>
     <!-- Comments -->
-    <div class="columns is-centered" style="margin-top: 5rem; margin-bottom: 5rem;">
+    <div class="columns is-centered" style="margin-top: 5rem; margin-bottom: 5rem;" id="comments">
       <div class="column comments" style="max-width: 650px; padding: 0;">
         {% include 'movies/_comments.html' %}
       </div>
@@ -35,72 +39,41 @@
 </section>
 
 <script>
-  Vue.component('star-rating', {
-    props: {
-      'name': String,
-      'value': null,
-      'id': String,
-      'disabled': Boolean,
-      'required': Boolean
-    },
-  
-    template: '<div class="star-rating">\
-          <label class="star-rating__star" v-for="rating in ratings" \
-          :class="{\'is-selected\': ((value >= rating) && value != null), \'is-disabled\': disabled}" \
-          v-on:click="set(rating)" v-on:mouseover="star_over(rating)" v-on:mouseout="star_out">\
-          <input class="star-rating star-rating__checkbox" type="radio" :value="rating" :name="name" \
-          v-model="value" :disabled="disabled">★</label></div>',
-  
-    data: function() {
-      return {
-        temp_value: null,
-        ratings: [1, 2, 3, 4, 5]
-      };
-    },
-  
-    methods: {
-      star_over: function(index) {
-        const self = this;
-  
-        if (!this.disabled) {
-          this.temp_value = this.value;
-          return this.value = index;
-        }
-      },
-  
-      star_out: function() {
-        const self = this;
-  
-        if (!this.disabled) {
-          return this.value = this.temp_value;
-        }
-      },
-  
-      set: function(value) {
-        const self = this;
-  
-        if (!this.disabled) {
-          this.temp_value = value;
-          return this.value = value;
-        }
-      }
-    }
-  });
-  
   const detail = new Vue({
     el: '#comments',
-    components: ['star-rating'],
+    delimiters: ['[[', ']]'],
     data: {
       ratingList: [],
       rating: {
         score: 0,
         comment: '',
       },
+      temp_value: null,
+      ratings: [1, 2, 3, 4, 5],
     },
+    
     method: {
-      async createRating(movie_pk) {
+      star_over: function(index) {
+        this.temp_value = this.rating.score;
+        return this.rating.score = index;
+      },
+  
+      star_out: function() {
+        return this.rating.score = this.temp_value;
+      },
+  
+      set: function(num) {
+        this.temp_value = num;
+        return this.rating.score = num;
+      },
+      
+      createRating: async function() {
         try {
-          const res = axios.post(`movies/${movie_pk}/ratings/`, this.rating);
+          const res = axios.post(`ratings/`, {
+            comment: this.rating.comment,
+            score: this.rating.score,
+          });
+          this.ratingList.push(this.rating)
           this.rating.comment = '';
           this.rating.score = 0;
         } 
@@ -108,6 +81,14 @@
           console.log(err);
         }
       },
+    },
+    
+    created() {
+      axios.get(`ratings/`)
+        .then(res => {
+          this.ratingList = res.data;
+        })
+        .catch(err => console.log(err));
     }
   })
 
