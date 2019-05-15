@@ -3,6 +3,8 @@ from .models import Genre, Movie, Rating
 
 
 class RatingSerializer(serializers.ModelSerializer):
+    user = serializers.StringRelatedField()
+
     class Meta:
         model = Rating
         fields = "__all__"
