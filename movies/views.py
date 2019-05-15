@@ -7,8 +7,11 @@ from .serializers import GenreSerializer, MovieSerializer, RatingSerializer
 
 
 def index(request):
-    return render(request, 'movies/app.html')
-
+    return render(request, 'movies/home.html')
+    
+def detail(request, pk):
+    movie = get_object_or_404(Movie, pk=pk)
+    return render(request, 'movies/detail.html', { 'movie': movie })
 
 @api_view(["GET"])
 def genres_list(request):
