@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.db import models
 from django.contrib.auth import get_user_model
 
@@ -10,10 +11,20 @@ class Genre(models.Model):
 
 
 class Movie(models.Model):
-    genre = models.ForeignKey(Genre, on_delete=models.CASCADE, related_name='movies')
+    genres = models.ManyToManyField(Genre, related_name='movies')
     title = models.CharField(max_length=150)
-    director = models.CharField(max_length=45)
-    summary = models.TextField()
+    title_eng = models.CharField(max_length=150, default="", blank=True)
+    title_org = models.CharField(max_length=150, default="", blank=True)
+    audience = models.IntegerField(default=0)
+    release = models.DateField(default=datetime.now, blank=True)
+    thumb_url = models.URLField(max_length=200, default="", blank=True)
+    poster_url = models.URLField(max_length=200, default="", blank=True)
+    running_time = models.IntegerField(default=0)
+    director = models.CharField(max_length=45, default="", blank=True)
+    film_rating = models.CharField(max_length=45, default="", blank=True)
+    actor1 = models.CharField(max_length=45, default="", blank=True)
+    actor2 = models.CharField(max_length=45, default="", blank=True)
+    actor3 = models.CharField(max_length=45, default="", blank=True)
 
     def __str__(self):
         return self.genre
