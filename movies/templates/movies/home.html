@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block app %}
+<!-- Hero content -->
+<div class="hero-body" style="padding-top: 5rem; padding-bottom: 5rem;">
+  <div class="container has-text-centered">
+    <h1 class="title hero-title" 
+        style="margin-bottom: 1.5rem;" 
+        @mouseover="hover.hero='이주의 영화'" 
+        @mouseleave="hover.hero='ㅇㅈㅇ ㅇㅎ'" 
+        v-text="hover.hero">
+    </h1>
+  </div>
+  <section class="section">
+    <div class="columns is-centered">
+      <div class="column is-half">
+        <a href="{% url 'movies:detail' 1 %}">
+          <div class="card movie-card">
+            <div class="card-image">
+              <figure class="image">
+                <img width="600" src="https://movie-phinf.pstatic.net/20190417_250/1555465284425i6WQE_JPEG/movie_image.jpg" alt="Placeholder image">
+              </figure>
+            </div>
+            <div class="card-content">
+              <div class="media">
+                <div class="media-content">
+                  <div class="tags" style="margin-bottom: 0.5rem;">
+                    <span class="tag">액션</span>
+                    <span class="tag">SF</span>
+                  </div>
+                  <p class="title is-4 movie-title">어벤져스 : 엔드게임</p>
+                </div>
+              </div>
+              <div class="content">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              Phasellus nec iaculis mauris. <a>@bulmaio</a>.
+              <a href="#">#css</a> <a href="#">#responsive</a>
+              <br>
+              <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+</div>
+<section class="section" style="margin-bottom: 10rem;">
+  <div class="container has-text-centered">
+    <h1 
+      class="title hero-title"
+      style="margin-bottom: 1.5rem;" 
+      @mouseover="hover.genre='장르별 영화'"
+      @mouseleave="hover.genre='ㅈㄹㅂ ㅇㅎ'" 
+      v-text="hover.genre">
+    </h1>
+  </div>
+  <section class="section genres" style="padding-right: 3rem; padding-left: 3rem;">
+   <div class="columns is-multiline is-mobile">
+    <div class="column is-3">
+      <img src="https://static.standard.co.uk/s3fs-public/thumbnails/image/2013/09/06/08/About-Time.jpg?w968" 
+        alt="로맨스"
+        width="300"
+      />
+    </div>
+    <div class="column is-3">
+      <img src="https://mondrian.mashable.com/uploads%252Fcard%252Fimage%252F760683%252F2117d274-d2cf-46b9-b60c-698d65361438.jpg%252F950x534__filters%253Aquality%252890%2529.jpg?signature=-7R3bLC1xTVhrjc86pBeYAogXFY=&source=https%3A%2F%2Fblueprint-api-production.s3.amazonaws.com" 
+        alt="판타지"
+        width="300"
+      />
+    </div>
+    <div class="column is-3">
+      <img src="http://www.hanhodaily.com/news/photo/201603/46951_6136_5257.jpg" 
+        alt="액션"
+        width="300"
+      />
+    </div>
+    <div class="column is-3">
+      <div class="notification">
+      SF
+      </div>
+    </div>
+    <div class="column is-3">
+      <div class="notification">
+      로맨스
+      </div>
+    </div>
+    <div class="column is-3">
+      <div class="notification">
+      판타지
+      </div>
+    </div>
+    <div class="column is-3">
+      <div class="notification">
+      액션
+      </div>
+    </div>
+  </section>
+</section>
+{% endblock %}

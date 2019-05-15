@@ -1,0 +1,48 @@
+<!-- .Nav -->
+<nav class="navbar is-black" id="nav">
+<div class="container">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="{% url 'movies:index' %}">
+      <span @mouseover="hover='미음비읍'" @mouseleave="hover='ㅁㅂ'" v-text="hover">ㅁㅂ</span>
+    </a>
+    <span class="navbar-burger burger"
+      @click="showNav = !showNav"
+      :class="{ 'is-active': showNav }"
+      data-target="navbarMenuHeroA">
+      <span></span>
+      <span></span>
+      <span></span>
+    </span>
+  </div>
+  <div id="navbarMenuHeroA" class="navbar-menu has-background-black" :class="{ 'is-active': showNav }">
+    <div class="navbar-end">
+      <!--<a class="navbar-item is-active" href="{% url 'movies:index' %}">홈</a>-->
+      <div class="navbar-item field" style="margin-bottom: 0;">
+        <p class="control has-icons-right">
+          <input class="input" type="search" placeholder="영화 검색" v-model="query">
+          <span class="icon is-small is-right">
+            <i class="fas fa-search"></i>
+          </span>
+        </p>
+      </div>
+      {% if user.is_active %}
+      <span class="navbar-item">
+        <a>{{ user.username }}</a>
+      </span>
+      {% else %}
+      <span class="navbar-item">
+        <a class="button is-primary is-outlined" href="{% url 'accounts:signup' %}">
+          <span>회원가입</span>
+        </a>
+      </span>
+      <span class="navbar-item">
+        <a class="button is-light is-outlined" href="{% url 'accounts:login' %}">
+          <span>로그인</span>
+        </a>
+      </span>
+      {% endif %}
+    </div>
+  </div>
+</div>
+</nav>
+<!-- /.Nav -->
