@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'movies',
     'accounts',
     'rest_framework',
-    'bulma'
+    'bulma',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
