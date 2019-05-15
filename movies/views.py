@@ -107,4 +107,3 @@ def load(request):
             obj, created = Genre.objects.get_or_create(type=genre_name)
             movie.genres.add(obj)
         movie.save()
->>>>>>> 5d2d932ac620343a3455f8f4ec1cf40b6153c1c7
