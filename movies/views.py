@@ -1,10 +1,11 @@
 from django.shortcuts import render, get_object_or_404
+from django.conf import settings
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import Genre, Movie, Rating
 from .serializers import GenreSerializer, MovieSerializer, RatingSerializer
-
+import json, os
 
 def index(request):
     return render(request, 'movies/app.html')
@@ -73,3 +74,33 @@ def ratings_detail(request, pk):
                 return Response({"message": "삭제되었습니다."}, status=status.HTTP_204_NO_CONTENT)
         else:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
+
+
+def load(request):
+    data = []
+    json_data = os.path.join(settings.BASE_DIR, 'static', "data/data.json")
+    with open(json_data, encoding='UTF-8') as f:
+        data = json.load(f)
+    for rec in data:
+        # 'genre': rec['genre'].split('/'),
+        context = {
+            'id': rec['id'],
+            'title': rec['title'],
+            'title_eng': rec['title_eng'],
+            'title_org': rec['title_org'],
+            'audience': rec['audience'],
+            'release': rec['release'],
+            'thumb_url': rec['thumb_url'],
+            'poster_url': rec['poster_url'],
+            'running_time': rec['running_time'],
+            'director': rec['director'],
+            'film_rating': rec['film_rating'],
+            'actor1': rec['actor1'],
+            'actor2': rec['actor2'],
+            'actor3': rec['actor3'],
+        }
+        movie = Movie.objects.create(**context)
+        for genre_name in rec['genre'].split('/'):
+            obj, created = Genre.objects.get_or_create(type=genre_name)
+            movie.genres.add(obj)
+        movie.save()
