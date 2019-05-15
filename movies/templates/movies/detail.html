@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load humanize %}
 {% block app %}
 <section class="section movie-detail" style="padding-top: 6rem;">
   <div class="container">
@@ -8,24 +9,25 @@
       <div class="column" style="display:flex; justify-content: center; align-items: center;">
         <div class="content" style="max-width: 650px">
           <!-- Movie Poster -->
-          <img src="https://movie-phinf.pstatic.net/20190417_250/1555465284425i6WQE_JPEG/movie_image.jpg" width="650">
+          <img src="{{ movie.poster_url }}" width="650">
           <!-- Genres -->
-          <div class="tags" style="margin-top: 1rem;">
-            <span class="tag">액션</span>
-            <span class="tag">SF</span>
+          <div class="tags" style="margin-top: 1rem; margin-bottom: 0.2rem;">
+            {% for genre in movie.genres.all %}
+            <span class="tag">{{ genre.type }}</span>
+            {% endfor %}
           </div>
-          <h1 class="title" style="margin-top: 0;">{{ movie.title }}</h1>
-          <p class="movie-description">인피니티 워 이후 절반만 살아남은 지구
-           마지막 희망이 된 어벤져스
-           먼저 떠난 그들을 위해 모든 것을 걸었다!<br/>
-           위대한 어벤져스
-           운명을 바꿀 최후의 전쟁이 펼쳐진다</p>
+          <h1 class="title" style="margin-top: 0; margin-bottom: 0.4rem;">{{ movie.title }}</h1>
+          <div class="movie-description" style="line-height: 1.6">
+            <small>{{ movie.release }} 개봉 &bull; {{ movie.audience | intcomma }}명 &bull; {{ movie.film_rating }}</small>
+            <p style="margin-bottom: 0">감독 : {{ movie.director }}</p>
+            <p style="margin-bottom: 0">배우 : {{ movie.actor1 }}, {{ movie.actor2 }}, {{ movie.actor3 }}</p>
+          </div>
         </div>
       </div>
     </div>
     <!-- Comments -->
     <div class="columns is-centered" style="margin-top: 5rem; margin-bottom: 5rem;">
-      <div class="column" style="max-width: 650px">
+      <div class="column comments" style="max-width: 650px; padding: 0;">
         {% include 'movies/_comments.html' %}
       </div>
     </div>

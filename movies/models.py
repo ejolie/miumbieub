@@ -28,6 +28,10 @@ class Movie(models.Model):
 
     def __str__(self):
         return self.title
+        
+    @classmethod
+    def max_audience(cls):
+        return cls.objects.order_by('-audience')[0]
 
     @classmethod
     def max_audience(cls):

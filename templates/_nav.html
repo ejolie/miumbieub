@@ -27,7 +27,12 @@
       </div>
       {% if user.is_active %}
       <span class="navbar-item">
-        <a>{{ user.username }}</a>
+        <a style="font-famliy: 'Gugi'; color: white;">{{ user.username }}</a>
+      </span>
+      <span class="navbar-item">
+        <a class="button is-light is-outlined" href="{% url 'accounts:logout' %}">
+          <span>로그아웃</span>
+        </a>
       </span>
       {% else %}
       <span class="navbar-item">
@@ -46,3 +51,14 @@
 </div>
 </nav>
 <!-- /.Nav -->
+<script>
+  const nav = new Vue({
+    el: '#nav',
+    
+    data: {
+      hover: 'ㅁㅂ',
+      showNav: false,
+      query: '',
+    }
+  });
+</script>

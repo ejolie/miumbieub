@@ -8,9 +8,10 @@ from .serializers import GenreSerializer, MovieSerializer, RatingSerializer
 import json, os
 
 def index(request):
-    return render(request, 'movies/home.html')
+    movie_of_week = Movie.max_audience()
+    return render(request, 'movies/home.html', {'movie': movie_of_week})
     
-def detail(request, pk):
+def movies_detail(request, pk):
     movie = get_object_or_404(Movie, pk=pk)
     return render(request, 'movies/detail.html', { 'movie': movie })
 
@@ -35,11 +36,11 @@ def movies_list(request):
     return Response(serializer.data)
 
 
-@api_view(["GET"])
-def movies_detail(request, pk):
-    movie = get_object_or_404(Movie, pk=pk)
-    serializer = MovieSerializer(movie)
-    return Response(serializer.data)
+# @api_view(["GET"])
+# def movies_detail(request, pk):
+#     movie = get_object_or_404(Movie, pk=pk)
+#     serializer = MovieSerializer(movie)
+#     return Response(serializer.data)
 
 
 @api_view(["GET", "POST"])
