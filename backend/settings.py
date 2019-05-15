@@ -43,9 +43,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'movies',
     'accounts',
-    'rest_framework',
-    'bulma',
-    'django_extensions',
 ]
 
 MIDDLEWARE = [
