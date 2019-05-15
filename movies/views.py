@@ -5,15 +5,19 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import Genre, Movie, Rating
 from .serializers import GenreSerializer, MovieSerializer, RatingSerializer
-import json, os
+import json
+import os
+
 
 def index(request):
     movie_of_week = Movie.max_audience()
     return render(request, 'movies/home.html', {'movie': movie_of_week})
-    
+
+
 def movies_detail(request, pk):
     movie = get_object_or_404(Movie, pk=pk)
-    return render(request, 'movies/detail.html', { 'movie': movie })
+    return render(request, 'movies/detail.html', {'movie': movie})
+
 
 @api_view(["GET"])
 def genres_list(request):
