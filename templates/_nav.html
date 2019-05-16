@@ -26,12 +26,18 @@
                 <span class="icon is-small is-right"><i class="fas fa-search"></i></span>
               </p>
             </li>
-            <li v-for="movie in filteredMovies" class="search-movie"><a :href="detailUrl(movie)">[[ movie.title ]]</a></li>
+            <li 
+              v-for="movie in filteredMovies" 
+              class="search-movie" 
+              style="border-radius: 4px; border: 1px solid transparent;"
+            >
+              <a :href="detailUrl(movie)">[[ movie.title ]]</a>
+            </li>
           </ul>
         </div>
         {% if user.is_active %}
         <span class="navbar-item">
-        <a style="font-famliy: 'Gugi'; color: white;">{{ user.username }}</a>
+        <a style="font-famliy: 'Gugi'; color: white;" href="">{{ user.username }}</a>
       </span>
         <span class="navbar-item">
         <a class="button is-light is-outlined" href="{% url 'accounts:logout' %}">
