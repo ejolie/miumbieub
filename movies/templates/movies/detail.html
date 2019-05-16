@@ -67,6 +67,9 @@
     },
     
     methods: {
+      getProfileUrl: function (username) {
+        return "{% url 'accounts:profile_view' 'asd'%}".replace('asd', `${username}`)
+      },
       star_over: function(index) {
         this.temp_value = this.rating.score;
         this.rating.score = index;

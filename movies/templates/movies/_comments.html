@@ -5,7 +5,7 @@
     <div class="content" v-for="rating in ratingList" v-show="ratingList.length">
       <div class="block" style="margin-bottom: 1rem;">
         <div style="display:flex; align-items:center;">
-          <span style="font-weight: 700;">[[ rating.username ]]</span>
+          <a style="font-weight: 700;" :href="getProfileUrl(rating.username)" class="has-text-white-bis">[[ rating.username ]]</a>
           <span style="margin-left: 0.4rem;">
             <i v-for="num in rating.score" class="fas fa-star" 
             style="color: #FFD700; font-size: 1rem; margin-bottom: 0rem;"></i>
