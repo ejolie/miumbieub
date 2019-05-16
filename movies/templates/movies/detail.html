@@ -60,6 +60,7 @@
       },
       temp_value: null,
       ratings: [1, 2, 3, 4, 5],
+      isEditing: false,
     },
     
     methods: {
@@ -97,6 +98,20 @@
             this.ratingList = this.ratingList.filter(rating => rating.id !== id);
           })
           .catch(err => console.log(err));
+      },
+      
+      editRating: function(editing) {
+        this.isEditing = true;
+        this.rating.score = editing.score;
+        this.rating.content = editing.comment;
+        // const url = "{% url 'movies:ratings_detail' 1234 %}".replace('1234', `${id}`)
+        // axios.put(url)
+        //   .then(res => {
+        //     // console.log(res);
+        //     this.ratingList = this.ratingList.filter(rating => rating.id !== id);
+        //   })
+        //   .catch(err => console.log(err));
+        // this.isEditing = false;
       }
     },
     

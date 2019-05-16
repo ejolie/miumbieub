@@ -13,13 +13,22 @@
               style="color: #FFD700; font-size: 1rem; margin-bottom: 0.4rem;"
             >★</label>
           </span>
+          <!-- Edit Button -->
+          <a 
+            style="margin-left: 0.4rem; color: #fff;" 
+            v-if="rating.username === '{{ user.username }}'"
+            @click="editRating(rating)"
+          >
+            <i class="far fa-edit fa-sm"></i>
+          </a>
           <!-- Delete Button -->
           <a 
-            class="delete is-small" 
-            style="margin-left: 0.2rem;" 
-            v-show="rating.username === '{{ user.username }}'"
+            style="margin-left: 0.4rem; color: #fff;" 
+            v-if="rating.username === '{{ user.username }}'"
             @click="deleteRating(rating.id)"
-          ></a>
+          >
+            <i class="far fa-trash-alt fa-sm"></i>
+          </a>
         </div>
         <p>[[ rating.comment ]]</p>
       </div>
@@ -61,7 +70,17 @@
     <nav class="level">
       <div class="level-left">
         <div class="level-item">
-          <button @click="createRating('{{ user.username }}')" class="button is-info">등록</button>
+          <button 
+            v-if="!isEditing"
+            @click="createRating('{{ user.username }}')" class="button is-info">
+            등록
+          </button>
+          <button
+            v-if="isEditing"
+            @click="updatedRating()" class="button is-success"
+          >
+            수정
+          </button>
         </div>
       </div>
     </nav>
