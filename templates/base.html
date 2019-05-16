@@ -22,14 +22,11 @@
     <title>ㅁㅂ</title>
   </head>
   <body>
-    <div id="app">
     {% include '_nav.html' %}
-      
-      {% block app %}
-      {% endblock %}
+    <div id="app">
+      {% block app %}{% endblock %}
     </div>
     {% include '_footer.html' %}
-    
     {% block script %}
     {% endblock %}
   </body>
