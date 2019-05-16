@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load gravatar %}
+{% block app %}
+<div class="container">
+  <div class="row mb-5">
+    <div class="col-3">
+      <img src="{{ person.email|gravatar_url:200 }}" class="img-thumbnail p-2 mr-3"
+           alt="{{ person.username }}'s gravatar">
+    </div>
+    <div class="col-9">
+      <h2>
+        {{ person.username }}
+        {% if person != user %}
+        {% if user in person.to_user.all %}
+        <a href="{% url 'accounts:profile_follow' person.username %}" class="btn btn-outline-secondary ml-2 py-1 px-2">팔로잉</a>
+        {% else %}
+        <a href="{% url 'accounts:profile_follow' person.username %}" class="btn btn-primary ml-2 py-1 px-2">팔로우</a>
+        {% endif %}
+        {% endif %}
+      </h2>
+      <h5 class="mb-4">
+        {{ person.last_name }}{{ person.first_name }}
+      </h5>
+    </div>
+  </div>
+  {% if user == person %}
+  <h5 class="mb-4">팔로워 추천</h5>
+  {% for follower in user.from_user.all %}
+  <li class="list-group-item"><a href="{% url 'accounts:profile_view' follower.id %}">
+    {{ follower.username }}</a>'s pick : {% if follower.get_recommend %}
+    <a href="{% url 'movies:movies_view' follower.get_recommend.movie.id %}">
+      {{ follower.get_recommend.movie.title }}</a> {{ follower.get_recommend.value }} / 10 점
+    {% else %}
+    아직 작성한 평점이 없습니다.
+    {% endif %}
+  </li>
+  {% endfor %}
+  {% endif %}
+  <h5 class="mb-4 mt-5">작성한 평점</h5>
+  {% if person.ratings.all %}
+  <li class="list-group-item">등록한 평점 : {{ person.ratings.all.count }} 개</li>
+  <li class="list-group-item">평균 평점 : {{ person.get_score.value__avg }} / 10.0 점</li>
+  <table class="table my-5">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">movie</th>
+      <th scope="col">comment</th>
+      <th scope="col">score</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for rating in person.ratings.all reversed %}
+    <tr>
+      <th scope="row">{{ forloop.counter }}</th>
+      <td><a href="{% url 'movies:movies_view' rating.movie.id %}">{{ rating.movie.title }}</a></td>
+      <td>{{ rating.comment }}</td>
+      <td>{{ rating.score }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <li class="list-group-item">아직 기록된 평점이 없습니다.</li>
+  {% endif %}
+</div>
+{% endblock %}

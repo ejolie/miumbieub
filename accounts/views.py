@@ -39,11 +39,26 @@ def signup(request):
             return redirect('movies:index')
     else:
         user_form = UserCustomCreationForm()
-    return render(request, 'accounts/signup.html', {'form': user_form })
+    return render(request, 'accounts/signup.html', {'form': user_form})
+
+
+def profile_view(request, username):
+    user = get_object_or_404(get_user_model(), username=username)
+    return render(request, 'accounts/profile.html', {'person': user})
 
 
 @api_view(["GET"])
-def profile(request, username):
+def profile_detail(request, username):
     user = get_object_or_404(get_user_model(), username=username)
     serializer = UserSerializer(user)
     return Response(serializer.data)
+
+
+@login_required
+def profile_follow(request, username):
+    user = get_object_or_404(get_user_model(), username=username)
+    if user in request.user.from_user.all():
+        request.user.from_user.remove(user)
+    elif user != request.user:
+        request.user.from_user.add(user)
+    return redirect('accounts:profile_view', username)

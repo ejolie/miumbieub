@@ -79,6 +79,8 @@ def ratings_detail(request, pk):
         return Response(serializer.data)
     else:
         if request.user == rating.user:
+            request.data["movie"] = rating.movie.id
+            request.data["user"] = request.user.id
             if request.method == 'PUT':
                 serializer = RatingSerializer(rating, data=request.data)
                 if serializer.is_valid(raise_exception=True):
