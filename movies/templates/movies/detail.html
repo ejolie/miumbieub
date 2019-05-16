@@ -32,7 +32,6 @@
     <!-- Comments -->
     <div class="columns is-centered" style="margin-top: 2rem; margin-bottom: 5rem;" id="comments">
       <div class="column comments" style="max-width: 650px; padding: 0;">
-        <hr/>
         {% include 'movies/_comments.html' %}
       </div>
     </div>
@@ -70,22 +69,13 @@
         this.rating.score = num;
       },
       
-      createRating: function(user, movie) {
-        console.log(user); 
-        console.log(movie);
-        
-        const data = {
-          ...this.rating,
-          user, 
-          movie 
-        }
-        
+      createRating: function(username) {
         axios.defaults.xsrfCookieName = 'csrftoken';
         axios.defaults.xsrfHeaderName = 'X-CSRFToken';
-        axios.post(`ratings/`, data)
+        axios.post(`ratings/`, this.rating)
           .then(res => {
             console.log(res);
-            this.ratingList.push(this.rating);
+            this.ratingList.push({ username, ...this.rating });
             this.rating.comment = '';
             this.rating.score = 0;
           })
