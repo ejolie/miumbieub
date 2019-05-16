@@ -5,7 +5,7 @@
 <section class="section movie-detail" style="padding-top: 6rem;">
   <div class="container">
     <!-- Movie Detail -->
-    <div class="columns is-centered" style="margin-bottom: 10rem;">
+    <div class="columns is-centered" style="margin-bottom: 8rem;">
       <div class="column" style="display:flex; justify-content: center; align-items: center;">
         <div class="content" style="max-width: 650px">
           <!-- Movie Poster -->
@@ -60,6 +60,10 @@
       },
       temp_value: null,
       ratings: [1, 2, 3, 4, 5],
+      edit: {
+        isEditing: false,
+        rating: null,
+      }
     },
     
     methods: {
@@ -82,17 +86,47 @@
         axios.defaults.xsrfHeaderName = 'X-CSRFToken';
         axios.post('{% url 'movies:ratings_list' movie.id %}', this.rating)
           .then(res => {
-            console.log(res);
-            this.ratingList.push({ username, ...this.rating });
+            this.ratingList.push(res.data);
             this.rating.comment = '';
             this.rating.score = 0;
           })
           .catch(err => console.log(err))
       },
+
+      deleteRating: function(id) {  
+        const url = "{% url 'movies:ratings_detail' 123456 %}".replace('123456', `${id}`)
+        axios.delete(url)
+          .then(res => {
+            // console.log(res);
+            this.ratingList = this.ratingList.filter(rating => rating.id !== id);
+          })
+          .catch(err => console.log(err));
+      },
+      
+      editRating: function(editing) {
+        this.edit.isEditing = true;
+        this.edit.rating = editing;
+        this.rating.score = editing.score;
+        this.rating.comment = editing.comment;
+      },
+      
+      updateRating: function() {
+        this.edit.rating.score = this.rating.score;
+        this.edit.rating.comment = this.rating.comment;
+        const url = "{% url 'movies:ratings_detail' 123456 %}".replace('123456', `${this.edit.rating.id}`)
+        axios.put(url, {'score': this.rating.score, 'comment': this.rating.comment})
+          .then(res => {
+            console.log(res.data);
+            this.edit.isEditing = false;
+            this.rating.comment = '';
+            this.rating.score = 0;
+          })
+          .catch(err => console.log(err));
+      }
     },
     
     created() {
-      axios.get(`ratings/`)
+      axios.get("{% url 'movies:ratings_list' movie.id %}")
         .then(res => {
           this.ratingList = res.data;
         })

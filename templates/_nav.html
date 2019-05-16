@@ -26,7 +26,13 @@
                 <span class="icon is-small is-right"><i class="fas fa-search"></i></span>
               </p>
             </li>
-            <li v-for="movie in filteredMovies" class="search-movie"><a :href="detailUrl(movie)">[[ movie.title ]]</a></li>
+            <li 
+              v-for="movie in filteredMovies" 
+              class="search-movie" 
+              style="border-radius: 4px; border: 1px solid transparent;"
+            >
+              <a :href="detailUrl(movie)">[[ movie.title ]]</a>
+            </li>
           </ul>
         </div>
         {% if user.is_active %}

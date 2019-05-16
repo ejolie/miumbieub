@@ -10,15 +10,25 @@
             <label 
               class="star-rating__star" 
               v-for="num in rating.score"
-              style="color: #FFD700; font-size: 1rem; margin-bottom: 0.4rem;"
+              style="color: #FFD700; font-size: 1rem; margin-bottom: 0.2rem;"
             >★</label>
           </span>
+          <!-- Edit Button -->
           <a 
-            class="delete is-small" 
-            style="margin-left: 0.2rem;" 
-            v-show="rating.username === '{{ user.username }}'"
-            @click=""
-          ></a>
+            style="margin-left: 0.4rem; color: #fff;" 
+            v-if="rating.username === '{{ user.username }}'"
+            @click="editRating(rating)"
+          >
+            <i class="far fa-edit fa-sm"></i>
+          </a>
+          <!-- Delete Button -->
+          <a 
+            style="margin-left: 0.4rem; color: #fff;" 
+            v-if="rating.username === '{{ user.username }}'"
+            @click="deleteRating(rating.id)"
+          >
+            <i class="far fa-trash-alt fa-sm"></i>
+          </a>
         </div>
         <p>[[ rating.comment ]]</p>
       </div>
@@ -33,7 +43,7 @@
       <p class="control">
          <!--Star Rating -->
         <div class="star-rating">
-          <label 
+          <label
             class="star-rating__star" 
             v-for="num in ratings"
             :class="{'is-selected': ((rating.score >= num) && rating.score != null)}"
@@ -60,7 +70,18 @@
     <nav class="level">
       <div class="level-left">
         <div class="level-item">
-          <button @click="createRating('{{ user.username }}')" class="button is-info">등록</button>
+          <button 
+            v-if="!edit.isEditing"
+            @click="createRating('{{ user.username }}')" class="button is-info">
+            등록
+          </button>
+          <button
+            v-if="edit.isEditing"
+            @click="updateRating" 
+            class="button is-success"
+          >
+            수정
+          </button>
         </div>
       </div>
     </nav>
