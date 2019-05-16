@@ -10,7 +10,7 @@
             <label 
               class="star-rating__star" 
               v-for="num in rating.score"
-              style="color: #FFD700; font-size: 1rem; margin-bottom: 0.4rem;"
+              style="color: #FFD700; font-size: 1rem; margin-bottom: 0.2rem;"
             >★</label>
           </span>
           <!-- Edit Button -->
@@ -43,7 +43,7 @@
       <p class="control">
          <!--Star Rating -->
         <div class="star-rating">
-          <label 
+          <label
             class="star-rating__star" 
             v-for="num in ratings"
             :class="{'is-selected': ((rating.score >= num) && rating.score != null)}"
@@ -71,12 +71,12 @@
       <div class="level-left">
         <div class="level-item">
           <button 
-            v-if="!isEditing"
+            v-if="!edit.isEditing"
             @click="createRating('{{ user.username }}')" class="button is-info">
             등록
           </button>
           <button
-            v-if="isEditing"
+            v-if="edit.isEditing"
             @click="updatedRating()" class="button is-success"
           >
             수정

@@ -5,7 +5,7 @@
 <section class="section movie-detail" style="padding-top: 6rem;">
   <div class="container">
     <!-- Movie Detail -->
-    <div class="columns is-centered" style="margin-bottom: 10rem;">
+    <div class="columns is-centered" style="margin-bottom: 8rem;">
       <div class="column" style="display:flex; justify-content: center; align-items: center;">
         <div class="content" style="max-width: 650px">
           <!-- Movie Poster -->
@@ -60,7 +60,10 @@
       },
       temp_value: null,
       ratings: [1, 2, 3, 4, 5],
-      isEditing: false,
+      edit: {
+        isEditing: false,
+        editId: 0,
+      }
     },
     
     methods: {
@@ -89,9 +92,9 @@
           })
           .catch(err => console.log(err))
       },
-      
+
       deleteRating: function(id) {  
-        const url = "{% url 'movies:ratings_detail' 1234 %}".replace('1234', `${id}`)
+        const url = "{% url 'movies:ratings_detail' 123456 %}".replace('123456', `${id}`)
         axios.delete(url)
           .then(res => {
             // console.log(res);
@@ -101,17 +104,28 @@
       },
       
       editRating: function(editing) {
-        this.isEditing = true;
+        this.edit.isEditing = true;
+        this.edit.editId = editing.id;
         this.rating.score = editing.score;
-        this.rating.content = editing.comment;
-        // const url = "{% url 'movies:ratings_detail' 1234 %}".replace('1234', `${id}`)
-        // axios.put(url)
-        //   .then(res => {
-        //     // console.log(res);
-        //     this.ratingList = this.ratingList.filter(rating => rating.id !== id);
-        //   })
-        //   .catch(err => console.log(err));
-        // this.isEditing = false;
+        this.rating.comment = editing.comment;
+      },
+      
+      updatedRating: function() {
+        const url = "{% url 'movies:ratings_detail' 123456 %}".replace('123456', `${this.edit.editId}`)
+        axios.put(url, { 'score': this.rating.score, 'comment': this.rating.comment })
+          .then(res => {
+            console.log(res.data);
+            // this.ratingList.forEach(rating => {
+            //   if (rating.id === this.edit.editId) {
+            //     rating.score = this.rating.score;
+            //     rating.comment = this.rating.comment;
+            //   }
+            // })
+          })
+          .catch(err => console.log(err));
+        this.edit.isEditing = false;
+        this.rating.comment = '';
+        this.rating.score = 0;
       }
     },
     
