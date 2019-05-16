@@ -3,18 +3,25 @@
   <div class="media-content" style="padding-top: 2.5rem; margin-bottom: 0.5rem;">
     <p v-show="!ratingList.length" style="color: #fff; margin-bottom: 0.5rem;">등록된 댓글이 없습니다.</p>
     <div class="content" v-for="rating in ratingList" v-show="ratingList.length">
-      <p style="margin-bottom: 1rem;">
-        <span style="font-weight: 700;">[[ rating.username ]]</span>
-        <span style="margin-left: 0.4rem;">
-          <label 
-            class="star-rating__star" 
-            v-for="num in rating.score"
-            style="color: #FFD700; font-size: 1rem; margin-bottom: 0.4rem;"
-          >★</label>
-        </span>
-        <br />
-        [[ rating.comment ]]
-      </p>
+      <div class="block" style="margin-bottom: 1rem;">
+        <div style="display:flex; align-items:center;">
+          <span style="font-weight: 700;">[[ rating.username ]]</span>
+          <span style="margin-left: 0.4rem;">
+            <label 
+              class="star-rating__star" 
+              v-for="num in rating.score"
+              style="color: #FFD700; font-size: 1rem; margin-bottom: 0.4rem;"
+            >★</label>
+          </span>
+          <a 
+            class="delete is-small" 
+            style="margin-left: 0.2rem;" 
+            v-show="rating.username === '{{ user.username }}'"
+            @click=""
+          ></a>
+        </div>
+        <p>[[ rating.comment ]]</p>
+      </div>
     </div>
   </div>
 </article>
