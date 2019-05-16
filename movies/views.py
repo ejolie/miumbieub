@@ -14,17 +14,16 @@ def index(request):
     return render(request, 'movies/home.html', {'movie': movie_of_week})
 
 
-def movies_detail(request, pk):
+def movies_view(request, pk):
     movie = get_object_or_404(Movie, pk=pk)
-    return render(request, 'movies/detail.html', { 'movie': movie })
-  
-  
-def genres_detail(request, pk):
-    genre = get_object_or_404(Genre, pk=pk)
-    movies = genre.movies.all()
-    return render(request, 'movies/genre.html', { 'movies': movies, 'genre': genre })
-    
-  
+    return render(request, 'movies/detail.html', {'movie': movie})
+
+
+def genres_view(request):
+    genre = get_object_or_404(Genre, type=request.GET.get('type'))
+    return render(request, 'movies/genre.html', {'genre': genre})
+
+
 @api_view(["GET"])
 def genres_list(request):
     genres = Genre.objects.all()
@@ -32,11 +31,11 @@ def genres_list(request):
     return Response(serializer.data)
 
 
-# @api_view(["GET"])
-# def genres_detail(request, pk):
-#     genre = get_object_or_404(Genre, pk=pk)
-#     serializer = GenreSerializer(genre)
-#     return Response(serializer.data)
+@api_view(["GET"])
+def genres_detail(request, pk):
+    genre = get_object_or_404(Genre, pk=pk)
+    serializer = GenreSerializer(genre)
+    return Response(serializer.data)
 
 
 @api_view(["GET"])
@@ -46,11 +45,11 @@ def movies_list(request):
     return Response(serializer.data)
 
 
-# @api_view(["GET"])
-# def movies_detail(request, pk):
-#     movie = get_object_or_404(Movie, pk=pk)
-#     serializer = MovieSerializer(movie)
-#     return Response(serializer.data)
+@api_view(["GET"])
+def movies_detail(request, pk):
+    movie = get_object_or_404(Movie, pk=pk)
+    serializer = MovieSerializer(movie)
+    return Response(serializer.data)
 
 
 @api_view(["GET", "POST"])
