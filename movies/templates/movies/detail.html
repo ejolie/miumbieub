@@ -62,7 +62,7 @@
       ratings: [1, 2, 3, 4, 5],
       edit: {
         isEditing: false,
-        editId: 0,
+        rating: null,
       }
     },
     
@@ -105,27 +105,23 @@
       
       editRating: function(editing) {
         this.edit.isEditing = true;
-        this.edit.editId = editing.id;
+        this.edit.rating = editing;
         this.rating.score = editing.score;
         this.rating.comment = editing.comment;
       },
       
-      updatedRating: function() {
-        const url = "{% url 'movies:ratings_detail' 123456 %}".replace('123456', `${this.edit.editId}`)
-        axios.put(url, { 'score': this.rating.score, 'comment': this.rating.comment })
+      updateRating: function() {
+        this.edit.rating.score = this.rating.score;
+        this.edit.rating.comment = this.rating.comment;
+        const url = "{% url 'movies:ratings_detail' 123456 %}".replace('123456', `${this.edit.rating.id}`)
+        axios.put(url, {'score': this.rating.score, 'comment': this.rating.comment})
           .then(res => {
             console.log(res.data);
-            // this.ratingList.forEach(rating => {
-            //   if (rating.id === this.edit.editId) {
-            //     rating.score = this.rating.score;
-            //     rating.comment = this.rating.comment;
-            //   }
-            // })
+            this.edit.isEditing = false;
+            this.rating.comment = '';
+            this.rating.score = 0;
           })
           .catch(err => console.log(err));
-        this.edit.isEditing = false;
-        this.rating.comment = '';
-        this.rating.score = 0;
       }
     },
     
