@@ -31,7 +31,7 @@
         </div>
         {% if user.is_active %}
         <span class="navbar-item">
-        <a style="font-famliy: 'Gugi'; color: white;">{{ user.username }}</a>
+        <a style="font-famliy: 'Gugi'; color: white;" href="{% url 'accounts:profile_view' user.username %}" >{{ user.username }}</a>
       </span>
         <span class="navbar-item">
         <a class="button is-light is-outlined" href="{% url 'accounts:logout' %}">
