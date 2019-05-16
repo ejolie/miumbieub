@@ -173,6 +173,7 @@ div.card.genre-card:hover .movie-title {
     font-size: 1.3em;
     color: #ABABAB;
     transition: color .2s ease-out;
+    margin: 0;
 }
 
 .star-rating__checkbox {
@@ -181,7 +182,7 @@ div.card.genre-card:hover .movie-title {
     clip: rect(0 0 0 0);
     height: 1px;
     width: 1px;
-    margin: -1px;
+    margin: 0;
     padding: 0;
     border: 0;
 }
