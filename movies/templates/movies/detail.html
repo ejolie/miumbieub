@@ -52,34 +52,30 @@
       ratings: [1, 2, 3, 4, 5],
     },
     
-    method: {
+    methods: {
       star_over: function(index) {
         this.temp_value = this.rating.score;
-        return this.rating.score = index;
+        this.rating.score = index;
       },
   
       star_out: function() {
-        return this.rating.score = this.temp_value;
+        this.rating.score = this.temp_value;
       },
   
       set: function(num) {
         this.temp_value = num;
-        return this.rating.score = num;
+        this.rating.score = num;
       },
       
-      createRating: async function() {
-        try {
-          const res = axios.post(`ratings/`, {
-            comment: this.rating.comment,
-            score: this.rating.score,
-          });
-          this.ratingList.push(this.rating)
-          this.rating.comment = '';
-          this.rating.score = 0;
-        } 
-        catch (err) {
-          console.log(err);
-        }
+      createRating: function() {
+        axios.post(`ratings/`, this.rating)
+          .then(res => {
+            console.log(res);
+            this.ratingList.push(this.rating);
+            this.rating.comment = '';
+            this.rating.score = 0;
+          })
+          .catch(err => console.log(err))
       },
     },
     

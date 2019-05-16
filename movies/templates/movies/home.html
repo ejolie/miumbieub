@@ -72,31 +72,20 @@
         genre: 'ㅈㄹㅂ ㅇㅎ',
         nav: 'ㅁㅂ',
       },
+      query: '',
       showNav: false,
     },
 
     methods: {
       // Axios
-      async searchMovie() {
-        
+      searchMovie: function() {
+        movieList = []
+        axios.get(`movies/`)
+          .then(res => console.log(res.data))
+          .catch(err => console.log(err));
       },
     },
 
-    created() {
-      // async getRatingList() {
-      //   try {
-      //     const pk = {{ movie.pk }}
-      //     const res = axios.get(`movies/${pk}/ratings/`);
-      //     this.ratingList = res.data;
-      //   }
-      //   catch (err) {
-      //     console.log(err);
-      //   }
-      // }
-      // axios.get(`movies/`)
-      //   .then(res => console.log(res.data))
-      //   .catch(err => console.log(err))
-    }
 })
   
 </script>
