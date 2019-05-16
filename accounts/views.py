@@ -7,6 +7,7 @@ from .forms import UserCustomCreationForm
 from .serializers import UserSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from django.http import JsonResponse
 
 
 def login(request):
@@ -57,8 +58,10 @@ def profile_detail(request, username):
 @login_required
 def profile_follow(request, username):
     user = get_object_or_404(get_user_model(), username=username)
+    is_follow = False
     if user in request.user.from_user.all():
         request.user.from_user.remove(user)
     elif user != request.user:
         request.user.from_user.add(user)
-    return redirect('accounts:profile_view', username)
+        is_follow = True
+    return JsonResponse({'is_follow': is_follow}, json_dumps_params={'ensure_ascii': True})
