@@ -19,7 +19,7 @@
       <div class="navbar-end">
         <!--<a class="navbar-item is-active" href="{% url 'movies:index' %}">홈</a>-->
         <div class="navbar-item field" style="margin-bottom: 0;">
-          <ul class="menu-list" v-show="!showNav">
+          <ul class="menu-list" v-show="!showNav" style="margin-right: 0.6rem;">
             <li>
               <p class="control has-icons-right">
                 <input class="input" type="search" placeholder="영화 검색" v-model="query" @keydown.enter="searchMovie">
@@ -37,7 +37,7 @@
         </div>
         {% if user.is_active %}
         <span class="navbar-item">
-        <a style="font-famliy: 'Gugi'; color: white;" href="{% url 'accounts:profile_view' user.username %}" >{{ user.username }}</a>
+        <a style="font-family: 'Gugi'; color: #fff;" href="{% url 'accounts:profile_view' user.username %}" >{{ user.username }}</a>
       </span>
         <span class="navbar-item">
         <a class="button is-light is-outlined" href="{% url 'accounts:logout' %}">

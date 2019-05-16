@@ -8,8 +8,10 @@
       <article class="media">
         <figure class="media-left">
           <p class="image is-64x64">
-            <img src="{{ person.email|gravatar_url:128 }}" class="img-thumbnail p-2 mr-3"
-                 alt="{{ person.username }}'s gravatar">
+            <img 
+              style="border-radius: 10px;"
+              src="{{ person.email|gravatar_url:128 }}" class="img-thumbnail p-2 mr-3"
+              alt="{{ person.username }}'s gravatar">
           </p>
         </figure>
         <div class="media-content">
@@ -30,13 +32,6 @@
               {% endif %}
             </p>
           </div>
-          <nav class="level is-mobile">
-            <div class="level-left">
-              <span class="level-item" style="color: #fff;">
-                여기에 어떤 걸 쓸까
-              </span>
-            </div>
-          </nav>
         </div>
         <nav class="level-left has-text-white-bis">
           <div class="level-item has-text-centered">

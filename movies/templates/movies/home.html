@@ -3,10 +3,10 @@
 {% load humanize %}
 {% block app %}
 <!-- Hero content -->
-<div class="hero-body" style="padding-top: 5rem; padding-bottom: 5rem;">
+<div class="hero-body" style="padding-top: 4rem; padding-bottom: 5rem;">
   <div class="container has-text-centered">
     <i class="fas fa-quote-left fa-lg" style="color: #fff; margin-bottom: 0.7rem;"></i>
-    <h1 class="title hero-title"
+    <h1 class="title hero-title is-2"
         style="margin-bottom: 1.5rem;"
         @mouseover="hover.hero='이주의 영화'"
         @mouseleave="hover.hero='ㅇㅈㅇ ㅇㅎ'"
@@ -20,7 +20,7 @@
           <div class="card movie-card">
             <div class="card-image">
               <figure class="image">
-                <img width="600" src="{{ movie.poster_url }}" alt="{{ movie.title }}">
+                <img style="border-radius: 10px 10px 0 0;" width="600" src="{{ movie.poster_url }}" alt="{{ movie.title }}">
               </figure>
             </div>
             <div class="card-content">
@@ -54,7 +54,7 @@
   <div class="container has-text-centered">
     <i class="fas fa-quote-right fa-lg" style="color: #fff; margin-bottom: 0.7rem;"></i>
     <h1
-            class="title hero-title"
+            class="title hero-title is-2"
             style="margin-bottom: 1.5rem;"
             @mouseover="hover.genre='장르별 영화'"
             @mouseleave="hover.genre='ㅈㄹㅂ ㅇㅎ'"
