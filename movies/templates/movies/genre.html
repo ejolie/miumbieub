@@ -2,114 +2,92 @@
 {% load static %}
 {% load humanize %}
 {% block app %}
-<section id="genre">
-  <section class="hero is-black">
-    <div class="hero-body">
-      <div class="container">
-        <div class="tags">
+  <section id="genre">
+    <section class="hero is-black">
+      <div class="hero-body">
+        <div class="container">
+          <div class="tags">
           <span class="tag is-white" v-for="genre in genreList" :class="{ 'is-info': genre.type === selectedGenre }">
             <a @click="getMovieList(genre)">
               [[ genre.type ]]
             </a>
           </span>
+          </div>
+          <h1 class="title is-2" v-text="selectedGenre" style="font-family: 'Gugi'"></h1>
         </div>
-        <h1 class="title is-2" v-text="selectedGenre" style="font-family: 'Gugi'"></h1>
       </div>
-    </div>
-  </section>
-  <section>
-    <div class="container">
-      <div class="columns is-multiline is-variable is-5" style="padding-left: 1rem; padding-right: 1rem;">
-        <div class="column is-one-third" style="margin-bottom: 2rem;" v-for="movie in movies">
-          <a :href="getDetailUrl(movie)">
-            <div class="card genre-card" style="border-radius: 10px;">
-              <div class="card-image">
-                <figure class="image">
-                  <img style="max-width: 300; border-radius: 10px 10px 0 0;" :src="movie.poster_url" :alt="movie.title">
-                </figure>
-              </div>
-              <div class="card-content">
-                <div class="media">
-                  <div class="media-content">
-                    <p class="title is-4 movie-title">[[ movie.title ]]</p>
-                    <small>[[ movie.release ]] 개봉</small>
+    </section>
+    <section>
+      <div class="container">
+        <div class="columns is-multiline is-variable is-5" style="padding-left: 1rem; padding-right: 1rem;">
+          <div class="column is-one-third" style="margin-bottom: 2rem;" v-for="movie in movies">
+            <a :href="getDetailUrl(movie)">
+              <div class="card genre-card" style="border-radius: 10px;">
+                <div class="card-image">
+                  <figure class="image">
+                    <img style="max-width: 300; border-radius: 10px 10px 0 0;" :src="movie.poster_url"
+                         :alt="movie.title">
+                  </figure>
+                </div>
+                <div class="card-content">
+                  <div class="media">
+                    <div class="media-content">
+                      <p class="title is-4 movie-title">[[ movie.title ]]</p>
+                      <small>[[ movie.release ]] 개봉</small>
+                      <br/>
+                      <small>[[ movie.film_rating ]]</small> &bull;
+                      <small><i class="fas fa-users"></i> [[ movie.audience ]]명</small>
+                    </div>
+                  </div>
+                  <div class="content">
+                    <small style="margin-bottom: 0">감독 : [[ movie.director ]]</small>
                     <br/>
-                    <small>[[ movie.film_rating ]]</small> &bull;
-                    <small><i class="fas fa-users"></i> [[ movie.audience ]]명</small>
+                    <small style="margin-bottom: 0">배우 : [[ [movie.actor1,movie.actor2,movie.actor3].join(', ') ]]
+                    </small>
                   </div>
                 </div>
-                <div class="content">
-                  <small style="margin-bottom: 0">감독 : [[ movie.director ]]</small>
-                  <br/>
-                  <small style="margin-bottom: 0">배우 : [[ [movie.actor1,movie.actor2,movie.actor3].join(', ') ]]
-                  </small>
-                </div>
               </div>
-            </div>
-          </a>
+            </a>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
   </section>
-</section>
 {% endblock %}
 
 {% block script %}
-<script>
-  const passedGenre = '{{ genre.type }}';
-  const passedId = '{{ genre.id }}';
-  const genre = new Vue({
-    el: '#genre',
-    delimiters: ['[[', ']]'],
-    data: {
-      movies: [],
-      selectedGenre: passedGenre,
-      selectedId: passedId,
-      genreList: [
-        { id: 15, type: '로맨스' },
-        { id: 17, type: 'SF'},
-        { id: 16, type: '뮤지컬'},
-        { id: 13, type: '가족'},
-        { id: 7, type: '액션'},
-        { id: 2, type: '판타지'}
-      ],
-      movieList: [],
-    },
-    created() {
-      let url = "{% url 'movies:genres_detail' genre.id %}";
-        axios.get(url)
-          .then(res => this.movies = res.data.movies);
-    },
-    methods: {
-      getDetailUrl: function (movie) {
-        const url = "{% url 'movies:movies_view' 123456 %}".replace('123456', movie.id);
-        return url
+  <script>
+    const passedGenre = '{{ genre.type }}';
+    const genre = new Vue({
+      el: '#genre',
+      delimiters: ['[[', ']]'],
+      data: {
+        movies: [],
+        selectedGenre: passedGenre,
+        genreList: [],
+        genres: [],
       },
-      getMovieList: function (genre) {
+      created() {
+        axios.get("{% url 'movies:genres_list' %}")
+          .then(res => {
+            this.genres = res.data;
+            res.data.forEach(genre => this.genreList.push({id: genre.id, type: genre.type}));
+          });
         let url = "{% url 'movies:genres_detail' genre.id %}";
-        url = url.replace("{{ genre.id }}", `${genre.id}`);
-        this.selectedGenre = genre.type;
-        this.selectedId = genre.id;
         axios.get(url)
           .then(res => this.movies = res.data.movies);
-        history.replaceState({}, 'ㅁㅂ', `/genres/?type=${this.selectedGenre}`);
       },
-    }
-  })
-
-  // const genre = new Vue({
-  //   el: '#genre',
-  //   data: {
-  //     genres: [],
-  //   },
-  //   created() {
-  //     axios.get(`https://movie-ejolie.c9users.io/genres/`)
-  //       .then(res => {
-  //         console.log(res.data)
-  //         this.genres = res.data;
-  //       })
-  //       .catch(err => console.log(err));
-  //   }
-  // })
-</script>
+      methods: {
+        getDetailUrl: function (movie) {
+          const url = "{% url 'movies:movies_view' 123456 %}".replace('123456', movie.id);
+          return url
+        },
+        getMovieList: function (genre) {
+          this.selectedGenre = genre.type;
+          this.movies = this.genres[genre.id - 1].movies;
+          history.replaceState({}, 'ㅁㅂ', `/genres/?type=${this.selectedGenre}`);
+        },
+      }
+    })
+  </script>
 {% endblock %}
