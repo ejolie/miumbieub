@@ -82,17 +82,26 @@
         axios.defaults.xsrfHeaderName = 'X-CSRFToken';
         axios.post('{% url 'movies:ratings_list' movie.id %}', this.rating)
           .then(res => {
-            console.log(res);
-            this.ratingList.push({ username, ...this.rating });
+            this.ratingList.push(res.data);
             this.rating.comment = '';
             this.rating.score = 0;
           })
           .catch(err => console.log(err))
       },
+      
+      deleteRating: function(id) {  
+        const url = "{% url 'movies:ratings_detail' 1234 %}".replace('1234', `${id}`)
+        axios.delete(url)
+          .then(res => {
+            // console.log(res);
+            this.ratingList = this.ratingList.filter(rating => rating.id !== id);
+          })
+          .catch(err => console.log(err));
+      }
     },
     
     created() {
-      axios.get(`ratings/`)
+      axios.get("{% url 'movies:ratings_list' movie.id %}")
         .then(res => {
           this.ratingList = res.data;
         })

@@ -13,11 +13,12 @@
               style="color: #FFD700; font-size: 1rem; margin-bottom: 0.4rem;"
             >★</label>
           </span>
+          <!-- Delete Button -->
           <a 
             class="delete is-small" 
             style="margin-left: 0.2rem;" 
             v-show="rating.username === '{{ user.username }}'"
-            @click=""
+            @click="deleteRating(rating.id)"
           ></a>
         </div>
         <p>[[ rating.comment ]]</p>
