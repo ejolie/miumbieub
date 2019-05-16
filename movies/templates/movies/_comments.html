@@ -10,6 +10,7 @@
     </div>
   </div>
 </article>
+{% if user.is_active %}
 <!-- Create Comment -->
 <article class="media">
   <div class="media-content">
@@ -34,7 +35,6 @@
             />★
           </label>
         </div>
-        <!--<input type="number" name="score" min="0" max="5" v-model="rating.score"/>-->
       </p>
     </div>
     <div class="field">
@@ -45,9 +45,10 @@
     <nav class="level">
       <div class="level-left">
         <div class="level-item">
-          <button @click="createRating" class="button is-info">등록</button>
+          <button @click="createRating('{{ user.id }}', '{{ movie.pk }}')" class="button is-info">등록</button>
         </div>
       </div>
     </nav>
   </div>
 </article>
+{% endif %}

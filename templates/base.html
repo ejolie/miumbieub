@@ -23,12 +23,14 @@
   </head>
   <body>
     <div id="app">
-      {% include '_nav.html' %}
+    {% include '_nav.html' %}
       
       {% block app %}
       {% endblock %}
     </div>
-      {% include '_footer.html' %}
-  <!--<script src="/static/js/app.js"></script>-->
+    {% include '_footer.html' %}
+    
+    {% block script %}
+    {% endblock %}
   </body>
 </html>

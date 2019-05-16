@@ -61,7 +61,9 @@
   </div>
   {% include 'movies/_genre-cards.html' %}
 </section>
+{% endblock %}
 
+{% block script %}
 <script>
   const home = new Vue({
     el: '#app',
@@ -79,14 +81,26 @@
     methods: {
       // Axios
       searchMovie: function() {
-        movieList = []
+
+        
+        movieList = [];
+        movieId = 0;
+        
         axios.get(`movies/`)
-          .then(res => console.log(res.data))
+          .then(res => {
+            movieList = res.data;
+            for (let movie in movieList) {
+              if (movie.includes(this.query)) {
+                movieId = movie.pk;
+                break;
+              }
+            }
+            console.log(movieId);
+          })
           .catch(err => console.log(err));
       },
     },
 
 })
-  
 </script>
 {% endblock %}
