@@ -22,8 +22,8 @@ def movies_detail(request, pk):
 def genres_detail(request, pk):
     genre = get_object_or_404(Genre, pk=pk)
     movies = genre.movies.all()
-    return render(request, 'movies/genre.html', { 'movies': movies })
-
+    return render(request, 'movies/genre.html', { 'movies': movies, 'genre': genre })
+    
   
 @api_view(["GET"])
 def genres_list(request):
