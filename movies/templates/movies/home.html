@@ -6,10 +6,10 @@
 <div class="hero-body" style="padding-top: 5rem; padding-bottom: 5rem;">
   <div class="container has-text-centered">
     <i class="fas fa-quote-left fa-lg" style="color: #fff; margin-bottom: 0.7rem;"></i>
-    <h1 class="title hero-title" 
-        style="margin-bottom: 1.5rem;" 
-        @mouseover="hover.hero='이주의 영화'" 
-        @mouseleave="hover.hero='ㅇㅈㅇ ㅇㅎ'" 
+    <h1 class="title hero-title"
+        style="margin-bottom: 1.5rem;"
+        @mouseover="hover.hero='이주의 영화'"
+        @mouseleave="hover.hero='ㅇㅈㅇ ㅇㅎ'"
         v-text="hover.hero">
     </h1>
   </div>
@@ -28,13 +28,15 @@
                 <div class="media-content">
                   <div class="tags" style="margin-bottom: 0.4rem;">
                     {% for genre in movie.genres.all %}
-                      <span class="tag is-primary">{{ genre.type }}</span>
+                    <span class="tag is-primary">{{ genre.type }}</span>
                     {% endfor %}
                   </div>
                   <p class="title is-3 movie-title" style="margin-bottom: 1rem">{{ movie.title }}</p>
                   <small>{{ movie.release }} 개봉</small>
-                  &bull; <small>{{ movie.film_rating }}</small>
-                  &bull; <small><i class="fas fa-users"></i> {{ movie.audience | intcomma }}명</small>
+                  &bull;
+                  <small>{{ movie.film_rating }}</small>
+                  &bull;
+                  <small><i class="fas fa-users"></i> {{ movie.audience | intcomma }}명</small>
                 </div>
               </div>
               <div class="content">
@@ -51,12 +53,12 @@
 <section class="section" style="padding-bottom: 10rem;">
   <div class="container has-text-centered">
     <i class="fas fa-quote-right fa-lg" style="color: #fff; margin-bottom: 0.7rem;"></i>
-    <h1 
-      class="title hero-title"
-      style="margin-bottom: 1.5rem;" 
-      @mouseover="hover.genre='장르별 영화'"
-      @mouseleave="hover.genre='ㅈㄹㅂ ㅇㅎ'" 
-      v-text="hover.genre">
+    <h1
+            class="title hero-title"
+            style="margin-bottom: 1.5rem;"
+            @mouseover="hover.genre='장르별 영화'"
+            @mouseleave="hover.genre='ㅈㄹㅂ ㅇㅎ'"
+            v-text="hover.genre">
     </h1>
   </div>
   {% include 'movies/_genre-cards.html' %}
@@ -74,33 +76,8 @@
         genre: 'ㅈㄹㅂ ㅇㅎ',
         nav: 'ㅁㅂ',
       },
-      query: '',
       showNav: false,
     },
-
-    methods: {
-      // Axios
-      searchMovie: function() {
-
-        
-        movieList = [];
-        movieId = 0;
-        
-        axios.get(`movies/`)
-          .then(res => {
-            movieList = res.data;
-            for (let movie in movieList) {
-              if (movie.includes(this.query)) {
-                movieId = movie.pk;
-                break;
-              }
-            }
-            console.log(movieId);
-          })
-          .catch(err => console.log(err));
-      },
-    },
-
-})
+  })
 </script>
 {% endblock %}
