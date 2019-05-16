@@ -8,8 +8,10 @@
       <article class="media">
         <figure class="media-left">
           <p class="image is-64x64">
-            <img src="{{ person.email|gravatar_url:128 }}" class="img-thumbnail p-2 mr-3"
-                 alt="{{ person.username }}'s gravatar">
+            <img 
+              style="border-radius: 10px;"
+              src="{{ person.email|gravatar_url:128 }}" class="img-thumbnail p-2 mr-3"
+              alt="{{ person.username }}'s gravatar">
           </p>
         </figure>
         <div class="media-content">
@@ -27,53 +29,40 @@
               <button class="button is-primary is-outlined">팔로우</button>
             </p>
           </div>
-          <nav class="level is-mobile">
-            <div class="level-left">
-              <span class="level-item" style="color: #fff;">
-                여기에 어떤 걸 쓸까
-              </span>
-            </div>
-          </nav>
         </div>
       </article>
     </section>
   </div>
   <div class="container has-text-white-bis">
     <section class="section">
-      <div class="tabs">
-        <ul>
-          <li>작성한 리뷰</li>
-        </ul>
+      <div style="border-bottom: 1px solid rgba(219, 219, 219, 0.5);
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.5rem;
+        margin-top: 3rem;">
+        <p class="title is-4 has-text-white">작성한 리뷰</p>
       </div>
       {% if person.ratings.all %}
-      <li class="list-group-item">등록한 평점 : {{ person.ratings.all.count }} 개</li>
-      <li class="list-group-item">평균 평점 : {{ person.get_score.score__avg }} / 5.0 점</li>
-      <table class="table rating-table is-fullwidth has-text-white-bis has-background-black">
-        <thead>
-        <tr>
-          <th scope="col" class="has-text-white-bis">movie</th>
-          <th scope="col" class="has-text-white-bis">comment</th>
-          <th scope="col" class="has-text-white-bis">score</th>
-        </tr>
-        </thead>
-        <tbody>
+      
+      <li style="list-style:none;" class="list-group-item">등록한 평점 : {{ person.ratings.all.count }} 개</li>
+      <li style="list-style:none;" class="list-group-item">평균 평점 : {{ person.get_score.score__avg }} / 5.0 점</li>
+      
+      <div style="margin-top: 2rem;">
         {% for rating in person.ratings.all reversed %}
-        <tr>
-          <td><a href="{% url 'movies:movies_view' rating.movie.id %}" class="button is-info is-small">
-            {{ rating.movie.title }}</a></td>
-          <td>{{ rating.comment }}</td>
-          <td>
-            <span style="margin-left: 0.4rem;">
+        <article class="message">
+          <div class="message-header">
+            <a href="{% url 'movies:movies_view' rating.movie.id %}" style="text-decoration: none;"><p>{{ rating.movie.title }}</p></a>
+          </div>
+          <div class="message-body">
+            <span>
               {% for i in i|rjust:rating.score %}
-              <label class="star-rating__star" v-for="num in rating.score"
-                     style="color: #FFD700; font-size: 1rem; margin-bottom: 0.4rem;">★</label>
+              <i v-for="num in rating.score" class="fas fa-star" style="color: #FFD700; font-size: 1rem; margin-bottom: 0.4rem;"></i>
               {% endfor %}
-          </span>
-          </td>
-        </tr>
+            </span><br/>
+           {{ rating.comment }}
+          </div>
+        </article>
         {% endfor %}
-        </tbody>
-      </table>
+      </div>
       {% else %}
       <li class="list-group-item">아직 기록된 평점이 없습니다.</li>
       {% endif %}

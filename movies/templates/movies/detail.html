@@ -94,10 +94,12 @@
       },
 
       deleteRating: function(id) {  
+        // console.log(id);
+        
         const url = "{% url 'movies:ratings_detail' 123456 %}".replace('123456', `${id}`)
         axios.delete(url)
           .then(res => {
-            // console.log(res);
+            // console.log(res.data);
             this.ratingList = this.ratingList.filter(rating => rating.id !== id);
           })
           .catch(err => console.log(err));

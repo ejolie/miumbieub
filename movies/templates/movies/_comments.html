@@ -7,11 +7,8 @@
         <div style="display:flex; align-items:center;">
           <span style="font-weight: 700;">[[ rating.username ]]</span>
           <span style="margin-left: 0.4rem;">
-            <label 
-              class="star-rating__star" 
-              v-for="num in rating.score"
-              style="color: #FFD700; font-size: 1rem; margin-bottom: 0.2rem;"
-            >★</label>
+            <i v-for="num in rating.score" class="fas fa-star" 
+            style="color: #FFD700; font-size: 1rem; margin-bottom: 0rem;"></i>
           </span>
           <!-- Edit Button -->
           <a 
@@ -57,7 +54,7 @@
               :value="num" 
               name="score"
               v-model="rating.score" 
-            />★
+            /><i class="fas fa-star"></i>
           </label>
         </div>
       </p>

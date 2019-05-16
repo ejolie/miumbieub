@@ -39,7 +39,7 @@ body {
     color: #fff;
 }
 
-/* Movie Cards */
+/* Movie Card */
 .media-content > .title {
     color: #000;
 }
@@ -66,9 +66,7 @@ body {
     text-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
 
-.image img {
-    border-radius: 10px 10px 0 0;
-}
+
 
 /* Genre Cards */
 h1.title.genre-title.is-size-4 {
