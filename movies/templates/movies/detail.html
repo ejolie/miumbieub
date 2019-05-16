@@ -23,7 +23,15 @@
             &bull; <small><i class="fas fa-users"></i> {{ movie.audience | intcomma }}명</small>
             <div class="content" style="margin-top: 1rem;">
               <p style="margin-bottom: 0">감독 : {{ movie.director }}</p>
-              <p style="margin-bottom: 0">배우 : {{ movie.actor1 }}, {{ movie.actor2 }}, {{ movie.actor3 }}</p>
+              <p style="margin-bottom: 0">
+                배우 : {{ movie.actor1 }}
+                {% if movie.actor2 %}
+                , {{ movie.actor2 }}
+                  {% if movie.actor3 %}
+                  , {{ movie.actor3 }}
+                  {% endif %}
+                {% endif %}
+              </p>
             </div>
           </div>
         </div>
