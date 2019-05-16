@@ -62,6 +62,8 @@ def ratings_list(request, pk):
         return Response(serializer.data)
     else:
         if request.user.is_authenticated:
+            request.data["movie"] = movie.id
+            request.data["user"] = request.user.id
             serializer = RatingSerializer(data=request.data)
             if serializer.is_valid(raise_exception=True):
                 serializer.save()

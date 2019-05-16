@@ -41,5 +41,8 @@ class Rating(models.Model):
     comment = models.TextField()
     score = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)])
 
+    def username(self):
+        return self.user.username
+
     def __str__(self):
         return f'{self.movie} | {self.score} | {self.comment}'
