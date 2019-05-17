@@ -70,6 +70,9 @@
             <p class="title is-4 has-text-white">팔로워 추천</p>
           </div>
           <div style="margin-top: 2rem;">
+            {% if user.from_user.count == 0 %}
+              <li>아직 기록된 평점이 없습니다.</li>
+            {% endif %}
             {% for follower in user.from_user.all %}
               {% if follower.get_recommend %}
                 <li style="list-style:none;margin-bottom: 15px;">
@@ -131,7 +134,7 @@
           </div>
 
         {% else %}
-          <li class="list-group-item">아직 기록된 평점이 없습니다.</li>
+          <li>아직 기록된 평점이 없습니다.</li>
         {% endif %}
       </section>
     </div>
