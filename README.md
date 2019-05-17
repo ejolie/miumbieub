@@ -7,8 +7,11 @@ SSAFY 마지막 프로젝트를 위한 영화 포털 사이트입니다.
 
 &nbsp;
 ## Built with
+
+Django 템플릿에서 Vue CDN을 이용해 개발했습니다.
+
 ### Frontend
-- Vue : ^2.6.10
+- Vue
 - Bulma
 - Font Awesome
 
