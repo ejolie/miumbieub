@@ -28,7 +28,7 @@
                 <div class="media-content">
                   <div class="tags" style="margin-bottom: 0.4rem;">
                     {% for genre in movie.genres.all %}
-                    <span class="tag is-primary">{{ genre.type }}</span>
+                    <span class="tag is-info">{{ genre.type }}</span>
                     {% endfor %}
                   </div>
                   <p class="title is-3 movie-title" style="margin-bottom: 1rem">{{ movie.title }}</p>
