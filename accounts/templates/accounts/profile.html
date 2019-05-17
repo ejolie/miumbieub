@@ -71,7 +71,7 @@
           </div>
           <div style="margin-top: 2rem;">
             {% if user.from_user.count == 0 %}
-              <li>아직 기록된 평점이 없습니다.</li>
+              <li style="list-style:none;">새로운 유저를 팔로우 해보세요!</li>
             {% endif %}
             {% for follower in user.from_user.all %}
               {% if follower.get_recommend %}
@@ -134,7 +134,7 @@
           </div>
 
         {% else %}
-          <li>아직 기록된 평점이 없습니다.</li>
+          <li style="list-type: none;">아직 등록된 평점이 없습니다. 평점을 남겨주세요!</li>
         {% endif %}
       </section>
     </div>
