@@ -109,7 +109,7 @@
         </div>
         {% if person.ratings.all %}
           <li style="list-style:none;">등록한 평점 : {{ person.ratings.all.count }} 개</li>
-          <li style="list-style:none;">평균 평점 : {{ person.get_score.score__avg }} / 5.0 점</li>
+          <li style="list-style:none;">평균 평점 : {{ person.get_score }} / 5.0 점</li>
 
           <div style="margin-top: 2rem;">
             {% for rating in person.ratings.all reversed %}
