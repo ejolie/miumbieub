@@ -1,6 +1,6 @@
 # 🎞 미음비읍
 
-SSAFY 마지막 프로젝트
+SSAFY 마지막 프로젝트를 위한 영화 포털 사이트입니다.
 
 &nbsp;
 ## Getting Started
