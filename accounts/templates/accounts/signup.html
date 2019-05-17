@@ -1,22 +1,32 @@
 {% extends 'base.html' %}
 {% load bulma_tags %}
 {% block app %}
-<section class="section signup">
-<div class="container" style="margin-top: 3rem;">
-  <h1 class="title has-text-centered">ㅎㅇㄱㅇ</h1>
-  <div class="columns is-centered" style="margin-top: 3rem;">
-    <div class="column is-4">
-      <form method="POST" action="{% url 'accounts:signup' %}">
-        {% csrf_token %}
-        {{ form | bulma }}
-        <div class="field">
-          <button class="button is-primary" type="submit">
-            회원가입
-          </button>
+  <section class="section signup" id="form">
+    <div class="container" style="margin-top: 3rem;">
+      <h1 class="title has-text-centered" @mouseover="text='회원가입'" @mouseleave="text='ㅎㅇㄱㅇ'" v-text="text"></h1>
+      <div class="columns is-centered" style="margin-top: 3rem;">
+        <div class="column is-4">
+          <form method="POST">
+            {% csrf_token %}
+            {{ form | bulma }}
+            <div class="field">
+              <button class="button is-primary" type="submit">
+                회원가입
+              </button>
+            </div>
+          </form>
         </div>
-      </form>
+      </div>
     </div>
-  </div>
-</div>
-</section>
+  </section>
+{% endblock %}
+{% block script %}
+  <script>
+    const form = new Vue({
+      el: '#form',
+      data: {
+        text: 'ㅎㅇㄱㅇ',
+      },
+    })
+  </script>
 {% endblock %}
