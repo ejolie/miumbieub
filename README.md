@@ -85,7 +85,7 @@ Django 템플릿에서 Vue CDN을 이용해 개발했습니다.
 ### 5) UI/UX
 
 - Bulma 프레임워크를 이용해 플랫폼에 최적화된 디자인 구현
-
+- Single Page App으로 페이지 리로드 최소화 (ex. 장르별 영화)
 
 
 &nbsp;
