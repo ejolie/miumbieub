@@ -192,6 +192,15 @@ article.media.notification:hover .highlight {
     color: #fff;
 }
 
+p.help {
+    color: #fff;
+}
+
+#app > section > div > div > div > form > div:nth-child(4) > div > ul {
+    color: #fff;
+    font-size: 12px;
+}
+
 /* Login */
 .login {
     font-family: "Noto Sans KR", sans-serif;
