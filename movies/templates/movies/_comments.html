@@ -1,7 +1,7 @@
 <!-- Comments List -->
 <article class="media" style="border-top: 1px solid rgba(219,219,219,.5);">
   <div class="media-content" style="padding-top: 2.5rem; margin-bottom: 0.5rem;">
-    <p v-show="!ratingList.length" style="color: #fff; margin-bottom: 0.5rem;">등록된 댓글이 없습니다.</p>
+    <p v-show="!ratingList.length" style="color: #fff; margin-bottom: 0.5rem;">아직 등록된 평점이 없습니다. 평점을 남겨주세요!</p>
     <div class="content" v-for="rating in ratingList" v-show="ratingList.length">
       <div class="block" style="margin-bottom: 1rem;">
         <div style="display:flex; align-items:center;">
@@ -17,6 +17,7 @@
             @click="editRating(rating)"
           >
             <i class="far fa-edit fa-sm"></i>
+          </a>
           </a>
           <!-- Delete Button -->
           <a 
@@ -78,6 +79,14 @@
             class="button is-success"
           >
             수정
+          </button>
+          <button
+            style="margin-left: 0.4rem;"
+            v-if="edit.isEditing"
+            @click="cancelEdit"
+            class="button is-outlined is-light"
+          >
+            취소
           </button>
         </div>
       </div>

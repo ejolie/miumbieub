@@ -103,6 +103,12 @@
           .catch(err => console.log(err));
       },
       
+      cancelEdit: function() {
+        this.edit.isEditing = false;
+        this.rating.comment = '';
+        this.rating.score = 0;
+      },
+      
       editRating: function(editing) {
         this.edit.isEditing = true;
         this.edit.rating = editing;
