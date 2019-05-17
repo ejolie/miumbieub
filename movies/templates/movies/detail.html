@@ -97,12 +97,14 @@
       },
 
       deleteRating: function(id) {
-        const url = "{% url 'movies:ratings_detail' 123456 %}".replace('123456', `${id}`)
-        axios.delete(url)
-          .then(res => {
-            this.ratingList = this.ratingList.filter(rating => rating.id !== id);
-          })
-          .catch(err => console.log(err));
+        if (window.confirm('정말 삭제하시겠습니까?')) {
+          const url = "{% url 'movies:ratings_detail' 123456 %}".replace('123456', `${id}`)
+          axios.delete(url)
+            .then(res => {
+              this.ratingList = this.ratingList.filter(rating => rating.id !== id);
+            })
+            .catch(err => console.log(err));
+        }
       },
 
       cancelEdit: function() {
