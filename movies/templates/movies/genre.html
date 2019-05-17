@@ -42,7 +42,8 @@
                   <div class="content">
                     <small style="margin-bottom: 0">감독 : [[ movie.director ]]</small>
                     <br/>
-                    <small style="margin-bottom: 0">배우 : [[ [movie.actor1,movie.actor2,movie.actor3].join(', ') ]]
+                    <small style="margin-bottom: 0">배우 :
+                      [[ [movie.actor1,movie.actor2,movie.actor3].filter(e => e !== "").join(', ') ]]
                     </small>
                   </div>
                 </div>
