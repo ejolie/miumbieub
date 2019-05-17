@@ -129,6 +129,10 @@ article.media.notification:hover .highlight {
     border-image-slice: 1;
 }
 
+.tags a:hover {
+    text-decoration: none;
+}
+
 /* Comments */
 .comments .content {
     font-family: "Noto Sans KR", sans-serif;

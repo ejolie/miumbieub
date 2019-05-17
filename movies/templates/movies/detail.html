@@ -13,7 +13,9 @@
           <!-- Genres -->
           <div class="tags" style="margin-top: 1.8rem; margin-bottom: 0.2rem;">
             {% for genre in movie.genres.all %}
-            <span class="tag is-info">{{ genre.type }}</span>
+            <a class="tag is-small is-info" href="{% url 'movies:genres_view' %}?type={{ genre.type }}">
+              {{ genre.type }}
+            </a>
             {% endfor %}
           </div>
           <h1 class="title" style="margin-top: 0.8rem; margin-bottom: 1rem;">{{ movie.title }}</h1>
@@ -65,7 +67,7 @@
         rating: null,
       }
     },
-    
+
     methods: {
       getProfileUrl: function (username) {
         return "{% url 'accounts:profile_view' 'asd'%}".replace('asd', `${username}`)
@@ -74,16 +76,16 @@
         this.temp_value = this.rating.score;
         this.rating.score = index;
       },
-  
+
       star_out: function() {
         this.rating.score = this.temp_value;
       },
-  
+
       set: function(num) {
         this.temp_value = num;
         this.rating.score = num;
       },
-      
+
       createRating: function(username) {
         axios.post('{% url 'movies:ratings_list' movie.id %}', this.rating)
           .then(res => {
@@ -94,7 +96,7 @@
           .catch(err => console.log(err))
       },
 
-      deleteRating: function(id) {  
+      deleteRating: function(id) {
         const url = "{% url 'movies:ratings_detail' 123456 %}".replace('123456', `${id}`)
         axios.delete(url)
           .then(res => {
@@ -102,7 +104,7 @@
           })
           .catch(err => console.log(err));
       },
-      
+
       cancelEdit: function() {
         this.edit.isEditing = false;
         this.rating.comment = '';
@@ -115,7 +117,7 @@
         this.rating.score = editing.score;
         this.rating.comment = editing.comment;
       },
-      
+
       updateRating: function() {
         this.edit.rating.score = this.rating.score;
         this.edit.rating.comment = this.rating.comment;
@@ -130,7 +132,7 @@
           .catch(err => console.log(err));
       }
     },
-    
+
     created() {
       axios.get("{% url 'movies:ratings_list' movie.id %}")
         .then(res => {
