@@ -52,7 +52,7 @@
             <div class="level-item has-text-centered">
               <div>
                 <p class="heading">Ratings</p>
-                <p class="title has-text-white-bis">[[ ratings ]]</p>
+                <p class="title has-text-white-bis">[[ rating_count ]]</p>
               </div>
             </div>
           </nav>
@@ -123,7 +123,7 @@
                 </div>
                 <div class="message-body">
             <span>
-              {% for i in i|rjust:rating.score %}
+              {% for i in 1|rjust:rating.score %}
                 <i class="fas fa-star" style="color: #FFD700; font-size: 1rem; margin-bottom: 0.4rem;"></i>
               {% endfor %}
             </span><br/>
@@ -150,7 +150,7 @@
         is_follow: {% if person in user.from_user.all %} true {% else %} false {% endif %},
         followings: {{ person.from_user.count }},
         followers: {{ person.to_user.count }},
-        ratings: {{ person.ratings.count }},
+        rating_count: {{ person.ratings.count }},
       },
       methods: {
         follow: function (person) {
