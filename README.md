@@ -22,3 +22,7 @@ Django 템플릿에서 Vue CDN을 이용해 개발했습니다.
 
 &nbsp;
 ## Deploy
+
+[Demo](https://movie-ejolie.c9users.io/)
+
+Cloud9을 이용해 임시 배포했습니다.
