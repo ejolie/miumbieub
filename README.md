@@ -7,7 +7,7 @@ SSAFY 마지막 프로젝트를 위한 영화 포털 사이트입니다.
 
 서지욱 : DB / 장고 REST API 설계, 장고 로직 구현, Vue 로직 구현
 
-박은정 : 화면 설계 및 디자인, Vue 로직 구현 
+박은정 : 화면 설계 및 디자인, Vue 로직 구현, REST API 활용
 
 &nbsp;
 
@@ -22,6 +22,7 @@ Django 템플릿에서 Vue CDN을 이용해 개발했습니다.
 #### Frontend
 
 - Vue
+- Axios
 - Bulma
 - Font Awesome
 
