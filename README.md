@@ -21,10 +21,10 @@ Django 템플릿에서 Vue CDN을 이용해 개발했습니다.
 
 #### Frontend
 
-- Vue
-- Axios
-- Bulma
-- Font Awesome
+- Vue : 2.6.10
+- Axios : 0.18.0
+- Bulma : 0.7.4
+- Font Awesome : 5.8.2
 
 #### Backend
 
