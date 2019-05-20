@@ -2,6 +2,23 @@
 
 SSAFY 마지막 프로젝트를 위한 영화 포털 사이트입니다.
 
+
+&nbsp;
+## 0. 로컬 실행 방법
+
+pip로 프로젝트에 필요한 패키지를 설치합니다.
+
+```bash
+> pip install -r requirements.txt
+```
+
+migrate를 한 뒤 Django 프로젝트를 실행합니다.
+
+```bash
+> python manage.py migrate
+> python manage.py runserver
+```
+
 &nbsp;
 ## 1. 업무 분담
 
@@ -93,9 +110,9 @@ Django 템플릿에서 Vue CDN을 이용해 개발했습니다.
 
 ## 5. 배포
 
-[Demo](https://movie-ejolie.c9users.io/)
+~~[Demo](https://movie-ejolie.c9users.io/)~~
 
-Cloud9을 이용해 임시 배포했습니다.
+~~Cloud9을 이용해 임시 배포했습니다.~~
 
 
 
