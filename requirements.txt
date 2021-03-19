@@ -4,7 +4,7 @@ decorator==4.4.0
 Django==2.1.11
 django-bulma==0.5.6
 django-extensions==2.1.6
-djangorestframework==3.9.4
+djangorestframework==3.11.2
 ipython==7.5.0
 ipython-genutils==0.2.0
 jedi==0.13.3
